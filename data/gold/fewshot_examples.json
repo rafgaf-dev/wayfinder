@@ -15,7 +15,7 @@
           "melancholic"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:LvZ18QfPSCLpNK8ZlqgXw",
@@ -31,7 +31,7 @@
           "melancholic"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "steam:935790",
@@ -48,7 +48,7 @@
           "calm"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:LvZ18QOi6e295_8Z066o3",
@@ -64,7 +64,7 @@
           "intense"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:1AgZkuVGkdSf1t8",
@@ -80,7 +80,7 @@
           "calm"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:LvZ18QIU-OWcv-UZaaYOi",
@@ -96,7 +96,7 @@
           "calm"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "steam:513340",
@@ -109,10 +109,11 @@
         "time_of_day": "any",
         "district": "gaming",
         "mood": [
-          "melancholic"
+          "melancholic",
+          "calm"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:LvZ18QPfA_6C8CS0HTQyh",
@@ -125,10 +126,10 @@
         "time_of_day": "late-night",
         "district": "music",
         "mood": [
-          "uplifting"
+          "intense"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "tm:1AgZkoKGkdSsbjP",
@@ -144,7 +145,7 @@
           "playful"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "steam:2384840",
@@ -160,7 +161,7 @@
           "calm"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "steam:1752850",
@@ -177,7 +178,7 @@
           "playful"
         ]
       },
-      "verified": false
+      "verified": true
     },
     {
       "id": "steam:2112550",
@@ -186,7 +187,7 @@
         "energy": "high",
         "social": "small-group",
         "engagement": "active",
-        "commitment": "minutes",
+        "commitment": "an-evening",
         "time_of_day": "any",
         "district": "gaming",
         "mood": [
@@ -194,7 +195,7 @@
           "playful"
         ]
       },
-      "verified": false
+      "verified": true
     }
   ]
 }
