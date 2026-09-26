@@ -48,8 +48,8 @@ difference can be measured rather than assumed.
 Usage (on a GPU; see notebooks/train_colab.ipynb):
     python src/train_lora.py train --output-dir /content/drive/MyDrive/wayfinder/lora
     python src/train_lora.py predict --output-dir /content/drive/MyDrive/wayfinder/lora
-Train on other labels (e.g. distilled) with --labels PATH; give the run its
-own --output-dir and --run-name.
+Train on other labels (e.g. distilled, see distill.py) with --labels and
+--val-labels; give the run its own --output-dir and --run-name.
 """
 
 import argparse
@@ -197,7 +197,7 @@ def train(args) -> None:
     taxonomy = prompts.load_taxonomy()
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     train_items = rb.read_jsonl(args.labels)[:args.limit_train] if args.limit_train else rb.read_jsonl(args.labels)
-    val_items = rb.read_jsonl(VAL_PATH)
+    val_items = rb.read_jsonl(args.val_labels)
     train_set, train_stats = encode_all(train_items, tokenizer, taxonomy)
     val_set, _ = encode_all(val_items, tokenizer, taxonomy)
     print(f"train: {train_stats}")
@@ -257,6 +257,7 @@ def train(args) -> None:
         "model": args.model,
         "labels_file": str(Path(args.labels).relative_to(REPO_ROOT)) if Path(args.labels).is_relative_to(REPO_ROOT) else str(args.labels),
         "labels_sha256": sha256_file(Path(args.labels)),
+        "val_labels_file": Path(args.val_labels).name,
         "quantised_4bit": quantise,
         "lora": {"r": LORA_R, "alpha": LORA_ALPHA, "dropout": LORA_DROPOUT, "targets": list(LORA_TARGETS)},
         "optimisation": {"epochs": EPOCHS, "max_steps": args.max_steps, "learning_rate": LEARNING_RATE,
@@ -335,6 +336,8 @@ def main() -> None:
     p_train = commands.add_parser("train")
     p_train.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
     p_train.add_argument("--labels", type=Path, default=TRAIN_PATH, help="training items with labels")
+    p_train.add_argument("--val-labels", type=Path, default=VAL_PATH,
+                         help="validation items for checkpoint selection; use labels from the same source as --labels")
     p_train.add_argument("--model", default=rb.MODEL_ID)
     p_train.add_argument("--resume", action="store_true", help="continue from the latest checkpoint")
     p_train.add_argument("--eval-steps", type=int, default=EVAL_STEPS)
