@@ -1,0 +1,2 @@
+# Local scripts (fetch, dataset build, evaluation, prompting baselines).
+pyyaml==6.0.3

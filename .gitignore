@@ -1,0 +1,21 @@
+# Raw API responses: large, and subject to the sources' terms.
+data/raw/
+
+# The full processed splits, with third-party text: a separate private repository
+# (rafgaf-dev/wayfinder-data) is cloned here. The public data/processed/ holds
+# ids, labels and flags only.
+data/private/
+
+# API keys
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Training outputs: checkpoints and adapters (~100 MB+); kept on Drive, not in git
+outputs/

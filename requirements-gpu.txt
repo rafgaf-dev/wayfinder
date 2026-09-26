@@ -1,0 +1,10 @@
+# Model runs (zero-shot, few-shot, fine-tuning), on a GPU such as a free Colab T4.
+# Install on top of requirements.txt:  pip install -r requirements.txt -r requirements-gpu.txt
+#
+# torch is deliberately not pinned: Colab ships a build matched to its CUDA
+# driver, and replacing it is slow and can break CUDA. The versions actually
+# used are recorded in every run's .meta.json.
+transformers==5.17.0
+accelerate==1.15.0
+peft==0.21.0
+bitsandbytes==0.50.2

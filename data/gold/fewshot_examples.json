@@ -1,0 +1,200 @@
+{
+  "note": "Few-shot examples: ids and labels only. Check and correct them with `python src/prompts.py review`, which shows each text; labels start as the silver rules' guesses.",
+  "examples": [
+    {
+      "id": "steam:1382020",
+      "source": "steam",
+      "labels": {
+        "energy": "high",
+        "social": "solo",
+        "engagement": "active",
+        "commitment": "an-evening",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "melancholic"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:LvZ18QfPSCLpNK8ZlqgXw",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "medium",
+        "social": "spectator",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "afternoon",
+        "district": "music",
+        "mood": [
+          "melancholic"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "steam:935790",
+      "source": "steam",
+      "labels": {
+        "energy": "low",
+        "social": "solo",
+        "engagement": "active",
+        "commitment": "ongoing",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "playful",
+          "calm"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:LvZ18QOi6e295_8Z066o3",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "high",
+        "social": "spectator",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "evening",
+        "district": "music",
+        "mood": [
+          "intense"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:1AgZkuVGkdSf1t8",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "low",
+        "social": "spectator",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "morning",
+        "district": "music",
+        "mood": [
+          "calm"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:LvZ18QIU-OWcv-UZaaYOi",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "medium",
+        "social": "spectator",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "evening",
+        "district": "music",
+        "mood": [
+          "calm"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "steam:513340",
+      "source": "steam",
+      "labels": {
+        "energy": "low",
+        "social": "solo",
+        "engagement": "active",
+        "commitment": "an-evening",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "melancholic"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:LvZ18QPfA_6C8CS0HTQyh",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "high",
+        "social": "crowd",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "late-night",
+        "district": "music",
+        "mood": [
+          "uplifting"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "tm:1AgZkoKGkdSsbjP",
+      "source": "ticketmaster",
+      "labels": {
+        "energy": "medium",
+        "social": "spectator",
+        "engagement": "passive",
+        "commitment": "an-evening",
+        "time_of_day": "evening",
+        "district": "live",
+        "mood": [
+          "playful"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "steam:2384840",
+      "source": "steam",
+      "labels": {
+        "energy": "low",
+        "social": "solo",
+        "engagement": "active",
+        "commitment": "ongoing",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "calm"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "steam:1752850",
+      "source": "steam",
+      "labels": {
+        "energy": "low",
+        "social": "solo",
+        "engagement": "competitive",
+        "commitment": "ongoing",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "intense",
+          "playful"
+        ]
+      },
+      "verified": false
+    },
+    {
+      "id": "steam:2112550",
+      "source": "steam",
+      "labels": {
+        "energy": "high",
+        "social": "small-group",
+        "engagement": "active",
+        "commitment": "minutes",
+        "time_of_day": "any",
+        "district": "gaming",
+        "mood": [
+          "intense",
+          "playful"
+        ]
+      },
+      "verified": false
+    }
+  ]
+}

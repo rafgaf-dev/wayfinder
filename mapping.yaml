@@ -1,0 +1,258 @@
+# Source vocabulary -> taxonomy, per source and axis.
+#
+# These rules produce SILVER labels: a heuristic reading of each source's own
+# metadata, used as training targets and as the ground truth for axes that
+# are not hand-labelled. On the test split, mood and commitment (and district
+# for Ticketmaster) are hand-labelled instead, and the README reports how
+# often these rules agree with the hand labels. That agreement is roughly the
+# ceiling on what a model trained on silver labels can learn, so these rules
+# are part of the experiment, not plumbing.
+#
+# The model never sees any of these fields. It predicts from prose alone.
+#
+# Semantics, read by build_dataset.py
+#   - Each axis has an ordered list of rules. The first rule whose `when`
+#     matches gives the label, so specific rules come before general ones.
+#   - `when` maps field names to lists of accepted values. Every field listed
+#     must match (AND); a list matches if the item has any of its values
+#     (OR). An empty `when` always matches, and serves as the default.
+#   - `unless` has the same form, and stops the rule matching if any of its
+#     fields matches. It expresses the "primary mode" convention: PvP counts
+#     as competitive unless the game is also single-player.
+#   - `label` is a taxonomy label, or a list of up to max_labels for mood.
+#   - `mode: collect` (mood only) takes labels from every matching rule in
+#     order, up to max_labels, instead of stopping at the first.
+#   - If no rule matches, the label is null: no ground truth for that axis.
+#     Null is deliberate wherever the metadata does not support a guess.
+#     A wrong guess would teach the fine-tune a wrong convention; a null only
+#     withholds a training signal on that axis.
+#   - `derive` replaces rules with a computed label, e.g. the start-time band.
+#   - `exclude` rules drop matching items before any labelling.
+#   - Values are matched exactly, case included. "Undefined" and "Other" are
+#     treated as absent, so they never match.
+
+ticketmaster:
+  # Fields, from the event's primary classification (or its first, when none
+  # is flagged primary): segment, genre, subgenre. Also time_of_day, the
+  # derived label below, so rules can depend on start time.
+
+  exclude:
+    - when: {segment: [Sports]}
+      # 393 events over 120 days, with prose for about 6 acts or fixtures,
+      # much of it talks, tours and terms and conditions. Too few and too
+      # noisy to evaluate; the README reports sport as unsupported.
+      reason: sport-too-sparse
+    - when: {segment: [Film, Miscellaneous]}
+      reason: no-district  # not fetched by default; here in case they ever are
+
+  axes:
+    district:
+      rules:
+        # By the taxonomy convention, a classical concert is a music
+        # performance, whichever segment Ticketmaster files it under.
+        - when: {genre: [Classical, Opera]}
+          label: music
+        - when: {segment: [Music]}
+          label: music
+        - when: {segment: [Arts & Theatre]}
+          label: live
+
+    social:
+      rules:
+        # A Dance/Electronic event that starts late is a club night: you are
+        # in the crowd, not watching a stage. The "Club Dance" sub-genre is
+        # not a reliable signal: 49 of its 64 events start before 22:00.
+        - when: {genre: [Dance/Electronic], time_of_day: [late-night]}
+          label: crowd
+        - when: {}
+          label: spectator
+
+    engagement:
+      rules:
+        - when: {}
+          label: passive  # ticket-holders watch; no participatory genres kept
+
+    energy:
+      rules:
+        # Sub-genres first, where they soften or sharpen their genre.
+        - when: {subgenre: [Pop, Pop Rock, Indie Pop, Singer-Songwriter, Adult Alternative Pop/Rock]}
+          label: medium
+        - when: {subgenre: [Punk, Hard Rock, Heavy Metal]}
+          label: high
+        - when: {subgenre: [Podcast]}
+          label: low
+        - when: {genre: [Rock, Alternative, Metal, Dance/Electronic, Hip-Hop/Rap]}
+          label: high
+        - when: {genre: [Pop, R&B, Reggae, Country, Latin, World, Blues, Folk, Jazz]}
+          label: medium
+        - when: {genre: [Classical, New Age, Religious, Ballads/Romantic]}
+          label: low
+        - when: {genre: [Spectacular, Circus & Specialty Acts]}
+          label: high
+        - when: {segment: [Arts & Theatre]}
+          label: medium  # comedy, theatre, variety: the taxonomy's own example
+        # Music with an undefined genre: no rule, so null.
+
+    mood:
+      rules:
+        # Only where the genre fixes the tone. Rock, Alternative, Folk,
+        # Country, Hip-Hop and drama span every tone, so they stay null and
+        # rely on the hand labels in test.
+        - when: {subgenre: [Horror]}
+          label: intense
+        - when: {subgenre: [Punk, Hard Rock, Heavy Metal]}
+          label: intense
+        - when: {genre: [Metal]}
+          label: intense
+        - when: {genre: [Comedy]}
+          label: playful
+        - when: {subgenre: [Comedy, Pantomime, Drag, Magic, Circus, Cabaret, Children's Theatre]}
+          label: playful
+        - when: {genre: [Children's Theatre, Magic & Illusion, Variety]}
+          label: playful
+        - when: {subgenre: [Musical]}
+          label: uplifting
+        - when: {genre: [Spectacular]}
+          label: uplifting
+        - when: {genre: [Dance/Electronic, Pop, Reggae, Latin]}
+          label: uplifting
+        - when: {subgenre: [Soul, Pop Rock, Indie Pop]}
+          label: uplifting
+        - when: {genre: [Blues]}
+          label: melancholic
+        - when: {genre: [Classical, New Age, Jazz]}
+          label: calm
+
+    commitment:
+      rules:
+        # No kept event spans several days or has an end date, so every
+        # ticketed event here is one occasion.
+        - when: {}
+          label: an-evening
+
+    time_of_day:
+      # The band containing dates.start.localTime, using the start_hours in
+      # taxonomy.yaml. Null when the listing has no time.
+      derive: start_time
+
+steam:
+  # Fields: genres and categories (store, present for every game) and tags
+  # (SteamSpy user tags). 53% of usable games have no tags at all: obscure
+  # games are never tagged. Genres and categories cover energy, social and
+  # engagement for every game; mood and commitment depend on tags, so they
+  # are null for untagged games.
+  #
+  # Categories list every mode a game supports ("PvP" for an optional
+  # online mode), so they are weak evidence of the primary mode. Tags record
+  # what players think a game is, so tag rules come first.
+
+  tag_filter:
+    # Keep a tag only if it has at least 20% of the votes of the game's most
+    # voted tag. That drops faint tags (a few votes for "Relaxing" on a
+    # shooter) at a cost of 1-3 points of mood and commitment coverage.
+    min_share: 0.2
+
+  exclude:
+    # Adult content that Steam's content descriptors (3 and 4, filtered in
+    # build_dataset.py) miss.
+    - when: {tags: [Sexual Content, Nudity, Hentai, NSFW]}
+      reason: adult-tags
+    - when: {genres: [Nudity, Sexual Content]}
+      reason: adult-tags
+
+  axes:
+    district:
+      rules:
+        # Whatever a game is about, it lives in gaming: a football game is
+        # not sport.
+        - when: {}
+          label: gaming
+
+    social:
+      rules:
+        - when: {genres: [Massively Multiplayer]}
+          label: crowd
+        - when: {tags: [MMORPG, MMO, Battle Royale]}
+          label: crowd
+        - when: {tags: [Co-op, Online Co-Op, Local Co-Op, Local Multiplayer, Party Game, Party]}
+          label: small-group
+        # Categories only when the game has no single-player mode, since
+        # otherwise the multiplayer mode may be a side feature.
+        - when: {categories: [Online PvP]}
+          unless: {categories: [Single-player]}
+          label: crowd  # online matchmaking with strangers
+        - when: {categories: [Co-op, Online Co-op, Multi-player, Shared/Split Screen, PvP]}
+          unless: {categories: [Single-player]}
+          label: small-group
+        - when: {}
+          label: solo
+
+    engagement:
+      rules:
+        - when: {tags: [PvP, Competitive, e-sports, eSports, MOBA, Fighting, 2D Fighter, 3D Fighter, Battle Royale]}
+          label: competitive
+        - when: {categories: [PvP, Online PvP, Shared/Split Screen PvP]}
+          unless: {categories: [Single-player]}
+          label: competitive
+        - when: {}
+          label: active  # every game is played; beating the computer is active
+
+    energy:
+      rules:
+        - when: {tags: [Relaxing, Cozy, Walking Simulator, Visual Novel, Hidden Object, Point & Click,
+                        Interactive Fiction, Text-Based, Idler, Clicker, Farming Sim, Life Sim, Card Game,
+                        Board Game, Meditative]}
+          label: low
+        - when: {tags: [Fast-Paced, Bullet Hell, FPS, Shooter, Action Roguelike, Hack and Slash,
+                        Shoot 'Em Up, Fighting, Racing, Twin Stick Shooter, Rhythm, Arena Shooter]}
+          label: high
+        - when: {genres: [Racing]}
+          label: high
+        # Genre fallbacks. Steam's "Action" is broad (platformers, brawlers),
+        # but it is the best signal an untagged game offers.
+        - when: {genres: [Action]}
+          label: high
+        - when: {genres: [Casual]}
+          label: low
+        - when: {}
+          label: medium
+
+    mood:
+      mode: collect
+      # Tags only: store genres say nothing about tone. Order sets priority
+      # when a game matches more than two. Uplifting has almost no tag
+      # signal (7 games), so it rests on the hand labels in test.
+      rules:
+        - when: {tags: [Horror, Psychological Horror, Survival Horror, Thriller, Gore, Violent,
+                        Bullet Hell, Souls-like]}
+          label: intense
+        - when: {tags: [Funny, Comedy, Cute, Dark Humor, Parody, Satire, Memes]}
+          label: playful
+        - when: {tags: [Relaxing, Cozy, Meditative]}
+          label: calm
+        - when: {tags: [Emotional, Sad, Drama, Dark, Psychological, Philosophical]}
+          label: melancholic
+        - when: {tags: [Wholesome, Feel Good]}
+          label: uplifting
+
+    commitment:
+      # Tags only. This is the axis with no source vocabulary: SteamSpy's
+      # playtime fields are empty, so these are proxies for how a game is
+      # played, and the hand labels in test are the real measure.
+      rules:
+        - when: {genres: [Massively Multiplayer]}
+          label: ongoing
+        - when: {tags: [MMORPG, MMO, Rogue-like, Rogue-lite, Action Roguelike, Roguelike Deckbuilder,
+                        Replay Value, Survival, Base-Building, City Builder, Colony Sim, Grand Strategy, 4X,
+                        Life Sim, Farming Sim, Sandbox, Open World, Idler, Clicker, Automation]}
+          label: ongoing
+        - when: {tags: [Walking Simulator, Hidden Object, Escape Room, Linear, Interactive Fiction]}
+          label: an-evening
+        - when: {tags: [Short, Arcade]}
+          label: minutes
+        # Untagged games: no rule, so null.
+
+    time_of_day:
+      rules:
+        - when: {}
+          label: any  # unscheduled content, by the taxonomy convention

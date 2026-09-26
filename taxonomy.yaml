@@ -1,0 +1,159 @@
+# Wayfinder shared taxonomy.
+#
+# Every item from every district is described on the same seven axes, so that
+# items from different districts can be compared directly. This file is the
+# single source of truth: the dataset builder, the prompts and the evaluator
+# all read it, and nothing else hard-codes a label.
+#
+# The descriptions and conventions are part of the taxonomy, not commentary.
+# They go verbatim into the zero- and few-shot prompts, so that prompting is
+# measured with the rules written down rather than with bare label names. A
+# baseline that never saw the rules would be a straw man.
+#
+# Changing a description changes the taxonomy. Bump `version` and re-run every
+# experiment, because results are only comparable within one version.
+#
+# Axis order here is the canonical order of fields in model output.
+
+version: 1
+
+# Rules that apply across all axes. Each one settles a case where a reasonable
+# reader could go either way, which is exactly the kind of convention the
+# fine-tune is expected to learn and the prompts must state.
+conventions:
+  - >-
+    Describe the experience of the person consuming the item, not that of the
+    performers or characters. For someone with a ticket, a football match is
+    passive and spectator, even though the players are competing.
+  - >-
+    Label the primary way the item is experienced, not every mode it supports.
+    A single-player game with an optional online mode is solo.
+  - >-
+    Label from what the description states or clearly implies. Where it is
+    silent on an axis, choose the most typical value for that kind of item.
+  - >-
+    District is decided by the item's form, not its subject. A football video
+    game is gaming, and a concert is music, not live.
+
+axes:
+  energy:
+    cardinality: single
+    question: How fast-paced and stimulating is the experience?
+    labels:
+      low: >-
+        Slow and unhurried, with no time pressure; suitable when tired.
+        A farming game, an ambient album, a gentle puzzle game.
+      medium: >-
+        A steady pace with some moments of pressure or excitement.
+        A story-led adventure game, an indie gig, a comedy show.
+      high: >-
+        Fast, loud or physically demanding, with sustained pressure.
+        A shooter, a rock or dance gig, a football match.
+
+  social:
+    cardinality: single
+    question: How many people share the experience, and in what role?
+    labels:
+      solo: >-
+        Designed to be experienced alone.
+      small-group: >-
+        Shared with a handful of people who know each other, roughly two to
+        eight. Co-op games, party games.
+      crowd: >-
+        Taking part alongside many others, mostly strangers. MMOs, large
+        online matches, club nights, mass-participation runs.
+      spectator: >-
+        Watching others perform as part of an audience. Concerts, sports
+        fixtures, theatre.
+
+  engagement:
+    cardinality: single
+    question: What does the person actually do?
+    labels:
+      passive: >-
+        Watches or listens; receives rather than acts.
+      active: >-
+        Makes choices, solves problems or moves, without a contest against
+        other people. Beating the computer or a high score counts as active.
+      competitive: >-
+        The core of the experience is a contest against other people:
+        player-versus-player, ranked play, entering a race.
+
+  mood:
+    cardinality: multi
+    min_labels: 1
+    max_labels: 2
+    question: What emotional tone does the item set?
+    note: >-
+      Give one label. Add a second only when the item clearly carries both
+      tones. Order is not significant.
+    labels:
+      calm: >-
+        Soothing, peaceful, relaxing.
+      uplifting: >-
+        Warm, joyful, hopeful or triumphant.
+      intense: >-
+        Tense, thrilling, aggressive or frightening. Horror is intense.
+      melancholic: >-
+        Sad, wistful, bleak or reflective.
+      playful: >-
+        Light-hearted, silly, whimsical or funny.
+
+  commitment:
+    cardinality: single
+    question: How much time does the item ask for to deliver its full value?
+    labels:
+      minutes: >-
+        Under about an hour in total, and nothing carries over. A short
+        arcade game, a quick puzzle collection.
+      an-evening: >-
+        Roughly one to five hours, usually in a single sitting, then done.
+        A concert, a match, a play, a short narrative game.
+      ongoing: >-
+        More than that, or designed to be returned to over weeks. Long RPGs,
+        MMOs, live-service games, roguelikes built for repeated runs.
+
+  time_of_day:
+    cardinality: single
+    question: When does the item take place?
+    note: >-
+      Scheduled events take the band containing their listed local start
+      time. Listings usually give the time doors open, which can be earlier
+      than a set time mentioned in the description. Unscheduled content, such
+      as games and recordings, is always `any`: do not infer a time from
+      mood, so a horror game is `any`, not late-night.
+    labels:
+      morning: Starts between 05:00 and 12:00.
+      afternoon: Starts between 12:00 and 17:00.
+      evening: Starts between 17:00 and 22:00.
+      late-night: Starts between 22:00 and 05:00.
+      any: Not tied to a time; available whenever the person chooses.
+    # Local start-time bands as [from, to) on a 24-hour clock. The dataset
+    # builder reads these, so the boundaries are defined in one place only.
+    start_hours:
+      morning: [5, 12]
+      afternoon: [12, 17]
+      evening: [17, 22]
+      late-night: [22, 5]  # wraps past midnight
+
+  district:
+    cardinality: single
+    question: Which district of the city does the item belong to?
+    # `social` and `commerce` have no source in this dataset yet. They stay in
+    # the label space because the product has them, so a model can wrongly
+    # predict them, and the README reports their support as zero.
+    labels:
+      sport: >-
+        Sporting fixtures and participation events, attended or broadcast.
+      gaming: >-
+        Video games and other interactive entertainment, whatever the subject.
+      music: >-
+        Recorded music and music performances, including concerts and
+        festivals.
+      social: >-
+        Community spaces and meet-ups whose point is the people.
+      commerce: >-
+        Shopping, product drops and merchandise.
+      live: >-
+        Live performance that is not primarily music or sport: theatre,
+        comedy, dance, family shows.

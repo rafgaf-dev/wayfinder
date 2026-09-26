@@ -1,0 +1,550 @@
+{
+  "created_at": "2026-09-26T12:47:41+00:00",
+  "config": {
+    "seed": 13,
+    "max_chars": 1500,
+    "min_chars": 100,
+    "test_quota": {
+      "gaming": 250,
+      "music": 150,
+      "live": 50
+    },
+    "val_quota": {
+      "gaming": 50,
+      "music": 35,
+      "live": 15
+    },
+    "train_cap": 3500,
+    "hand_axes": {
+      "steam": [
+        "mood",
+        "commitment"
+      ],
+      "ticketmaster": [
+        "mood",
+        "commitment",
+        "district"
+      ]
+    }
+  },
+  "provenance": {
+    "taxonomy_sha256": "297dda9e0204156922993fc4fbdd084238d4cef140fd026fe7883730f1663f60",
+    "mapping_sha256": "02d14f02b6688f5699f191085f26ecf0739b6441c93f9adaa53a2c0597ae625b",
+    "raw": {
+      "data/raw/ticketmaster/events.jsonl": {
+        "bytes": 174566840,
+        "sha256": "3e831835dfeefde1f875d2f4730d6982bbe9e6406bc035503c241365f8c2e368"
+      },
+      "data/raw/steam/appdetails.jsonl": {
+        "bytes": 59662381,
+        "sha256": "985c5dc525a7be0cf94b8fdc1771a8a862e905fe9c3464f609f268da8abe6720"
+      },
+      "data/raw/steam/steamspy.jsonl": {
+        "bytes": 2488978,
+        "sha256": "fbaa7fa4e0fdb0705696ba031f74f9c93f73d7e6c9878f979e313fe756e13591"
+      }
+    }
+  },
+  "sources": {
+    "ticketmaster": {
+      "candidates": 17363,
+      "excluded": {
+        "no_prose": 13973,
+        "same_group": 1513,
+        "excluded:sport-too-sparse": 393,
+        "not_english": 61,
+        "duplicate_text": 3
+      },
+      "truncated": 682,
+      "kept": 1420
+    },
+    "steam": {
+      "candidates": 4000,
+      "excluded": {
+        "adult": 198,
+        "same_group": 105,
+        "excluded:adult-tags": 69,
+        "not_english": 67,
+        "too_short": 9
+      },
+      "truncated": 1597,
+      "kept": 3552
+    }
+  },
+  "splits": {
+    "train": {
+      "n": 4422,
+      "by_district": {
+        "gaming": 3252,
+        "music": 1082,
+        "live": 88
+      },
+      "by_source": {
+        "steam": 3252,
+        "ticketmaster": 1170
+      }
+    },
+    "val": {
+      "n": 100,
+      "by_district": {
+        "gaming": 50,
+        "music": 35,
+        "live": 15
+      },
+      "by_source": {
+        "steam": 50,
+        "ticketmaster": 50
+      }
+    },
+    "test": {
+      "n": 450,
+      "by_district": {
+        "gaming": 250,
+        "music": 150,
+        "live": 50
+      },
+      "by_source": {
+        "steam": 250,
+        "ticketmaster": 200
+      }
+    }
+  },
+  "train_dropped_by_cap": {
+    "gaming": 0,
+    "live": 0,
+    "music": 0
+  },
+  "silver_coverage": {
+    "steam": {
+      "energy": 1.0,
+      "social": 1.0,
+      "engagement": 1.0,
+      "mood": 0.22240990990990991,
+      "commitment": 0.24380630630630631,
+      "time_of_day": 1.0,
+      "district": 1.0
+    },
+    "ticketmaster": {
+      "energy": 0.9436619718309859,
+      "social": 1.0,
+      "engagement": 1.0,
+      "mood": 0.4126760563380282,
+      "commitment": 1.0,
+      "time_of_day": 1.0,
+      "district": 1.0
+    }
+  },
+  "silver_distribution": {
+    "steam": {
+      "energy": {
+        "high": 1536,
+        "low": 1166,
+        "medium": 850
+      },
+      "social": {
+        "solo": 3220,
+        "small-group": 176,
+        "crowd": 156
+      },
+      "engagement": {
+        "active": 3303,
+        "competitive": 249
+      },
+      "mood": {
+        "None": 2762,
+        "playful": 199,
+        "intense": 185,
+        "intense+melancholic": 87,
+        "calm": 80,
+        "playful+calm": 80,
+        "intense+playful": 62,
+        "melancholic": 58,
+        "playful+melancholic": 24,
+        "calm+melancholic": 7,
+        "intense+calm": 4,
+        "calm+uplifting": 2,
+        "uplifting": 1,
+        "playful+uplifting": 1
+      },
+      "commitment": {
+        "None": 2686,
+        "ongoing": 544,
+        "an-evening": 186,
+        "minutes": 136
+      },
+      "time_of_day": {
+        "any": 3552
+      },
+      "district": {
+        "gaming": 3552
+      }
+    },
+    "ticketmaster": {
+      "energy": {
+        "medium": 760,
+        "high": 563,
+        "None": 80,
+        "low": 17
+      },
+      "social": {
+        "spectator": 1392,
+        "crowd": 28
+      },
+      "engagement": {
+        "passive": 1420
+      },
+      "mood": {
+        "None": 834,
+        "uplifting": 235,
+        "playful": 135,
+        "intense": 106,
+        "calm": 87,
+        "melancholic": 23
+      },
+      "commitment": {
+        "an-evening": 1420
+      },
+      "time_of_day": {
+        "evening": 1312,
+        "afternoon": 69,
+        "late-night": 35,
+        "morning": 4
+      },
+      "district": {
+        "music": 1267,
+        "live": 153
+      }
+    }
+  },
+  "leakage": {
+    "steam": {
+      "energy": {
+        "rate": 0.20129504504504506,
+        "top_terms": [
+          [
+            "Action",
+            368
+          ],
+          [
+            "Shooter",
+            71
+          ],
+          [
+            "Racing",
+            45
+          ],
+          [
+            "Visual Novel",
+            38
+          ],
+          [
+            "Casual",
+            37
+          ],
+          [
+            "Relaxing",
+            34
+          ],
+          [
+            "Hidden Object",
+            21
+          ],
+          [
+            "FPS",
+            19
+          ]
+        ]
+      },
+      "social": {
+        "rate": 0.0259009009009009,
+        "top_terms": [
+          [
+            "Co-op",
+            50
+          ],
+          [
+            "Local Multiplayer",
+            14
+          ],
+          [
+            "Local Co-Op",
+            13
+          ],
+          [
+            "Multi-player",
+            9
+          ],
+          [
+            "Massively Multiplayer",
+            5
+          ],
+          [
+            "Online Co-Op",
+            5
+          ],
+          [
+            "Online PvP",
+            4
+          ],
+          [
+            "Party Game",
+            4
+          ]
+        ]
+      },
+      "engagement": {
+        "rate": 0.01661036036036036,
+        "top_terms": [
+          [
+            "PvP",
+            33
+          ],
+          [
+            "Fighting",
+            11
+          ],
+          [
+            "Competitive",
+            7
+          ],
+          [
+            "Battle Royale",
+            5
+          ],
+          [
+            "Online PvP",
+            4
+          ],
+          [
+            "e-sports",
+            2
+          ],
+          [
+            "2D Fighter",
+            2
+          ],
+          [
+            "MOBA",
+            1
+          ]
+        ]
+      },
+      "mood": {
+        "rate": 0.06306306306306306,
+        "top_terms": [
+          [
+            "Horror",
+            99
+          ],
+          [
+            "Relaxing",
+            32
+          ],
+          [
+            "Dark",
+            32
+          ],
+          [
+            "Cute",
+            31
+          ],
+          [
+            "Bullet Hell",
+            17
+          ],
+          [
+            "Funny",
+            13
+          ],
+          [
+            "Survival Horror",
+            13
+          ],
+          [
+            "Comedy",
+            9
+          ]
+        ]
+      },
+      "commitment": {
+        "rate": 0.07066441441441441,
+        "top_terms": [
+          [
+            "Rogue-like",
+            48
+          ],
+          [
+            "Survival",
+            40
+          ],
+          [
+            "Arcade",
+            40
+          ],
+          [
+            "Rogue-lite",
+            26
+          ],
+          [
+            "Open World",
+            22
+          ],
+          [
+            "Hidden Object",
+            20
+          ],
+          [
+            "Sandbox",
+            15
+          ],
+          [
+            "Base-Building",
+            13
+          ]
+        ]
+      },
+      "time_of_day": {
+        "rate": 0.0,
+        "top_terms": []
+      },
+      "district": {
+        "rate": 0.0,
+        "top_terms": []
+      },
+      "any_axis": 0.30236486486486486
+    },
+    "ticketmaster": {
+      "energy": {
+        "rate": 0.3147887323943662,
+        "top_terms": [
+          [
+            "Rock",
+            93
+          ],
+          [
+            "Jazz",
+            55
+          ],
+          [
+            "Folk",
+            52
+          ],
+          [
+            "Pop",
+            51
+          ],
+          [
+            "Dance/Electronic",
+            43
+          ],
+          [
+            "Metal",
+            20
+          ],
+          [
+            "Reggae",
+            19
+          ],
+          [
+            "Blues",
+            19
+          ]
+        ]
+      },
+      "social": {
+        "rate": 0.008450704225352112,
+        "top_terms": [
+          [
+            "Dance/Electronic",
+            12
+          ]
+        ]
+      },
+      "engagement": {
+        "rate": 0.0,
+        "top_terms": []
+      },
+      "mood": {
+        "rate": 0.22746478873239437,
+        "top_terms": [
+          [
+            "Comedy",
+            88
+          ],
+          [
+            "Jazz",
+            55
+          ],
+          [
+            "Dance/Electronic",
+            43
+          ],
+          [
+            "Soul",
+            24
+          ],
+          [
+            "Pop",
+            23
+          ],
+          [
+            "Metal",
+            20
+          ],
+          [
+            "Reggae",
+            19
+          ],
+          [
+            "Blues",
+            19
+          ]
+        ]
+      },
+      "commitment": {
+        "rate": 0.0,
+        "top_terms": []
+      },
+      "time_of_day": {
+        "rate": 0.0,
+        "top_terms": []
+      },
+      "district": {
+        "rate": 0.4352112676056338,
+        "top_terms": [
+          [
+            "Music",
+            615
+          ],
+          [
+            "Classical",
+            3
+          ]
+        ]
+      },
+      "any_axis": 0.6267605633802817
+    }
+  },
+  "text_chars": {
+    "steam": {
+      "p10": 642,
+      "median": 1353.0,
+      "p90": 1486,
+      "max": 1500
+    },
+    "ticketmaster": {
+      "p10": 267,
+      "median": 971.5,
+      "p90": 1468,
+      "max": 1499
+    }
+  },
+  "gold": {
+    "rows": 450,
+    "filled": {
+      "mood": 172,
+      "commitment": 172,
+      "district": 76
+    }
+  }
+}
