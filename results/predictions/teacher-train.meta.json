@@ -1,0 +1,45 @@
+{
+  "role": "teacher",
+  "method": "few_shot",
+  "split": "train",
+  "model": "Qwen/Qwen2.5-3B-Instruct",
+  "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+  "system_prompt_sha256": "d8413ea1d4f76930273b4a9ceab55f82476beb9da2d264d3bf2c31e26132466d",
+  "fewshot_ids": [
+    "steam:1382020",
+    "steam:1752850",
+    "steam:2112550",
+    "steam:2384840",
+    "steam:513340",
+    "steam:935790",
+    "tm:1AgZkoKGkdSsbjP",
+    "tm:1AgZkuVGkdSf1t8",
+    "tm:LvZ18QIU-OWcv-UZaaYOi",
+    "tm:LvZ18QOi6e295_8Z066o3",
+    "tm:LvZ18QPfA_6C8CS0HTQyh",
+    "tm:LvZ18QfPSCLpNK8ZlqgXw"
+  ],
+  "decoding": {
+    "do_sample": false,
+    "max_new_tokens": 160,
+    "repetition_penalty": 1.0,
+    "batch_size": 8
+  },
+  "device": "cuda",
+  "totals": {
+    "wall_s": 10207.095365520017,
+    "input_tokens": 14658727,
+    "output_tokens": 235304,
+    "items": 4410
+  },
+  "sessions": [
+    {
+      "device_name": "Tesla T4",
+      "batch_size": 8,
+      "items": 3130,
+      "wall_s": 6812.41,
+      "started_at": "2026-09-27T12:37:21+00:00"
+    }
+  ],
+  "updated_at": "2026-09-27T14:30:54+00:00"
+}

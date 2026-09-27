@@ -1,0 +1,891 @@
+{
+  "a": "lora",
+  "b": "lora-distilled",
+  "created_at": "2026-09-27T17:04:48+00:00",
+  "n_bootstrap": 1000,
+  "provenance": {
+    "evaluate_sha256": "23522f8a11c34eda87b460bd6f401d338579897e158be768b9a9e39f8db0c6a5",
+    "test_sha256": "0940b0594f1f1e3d97f5e492a53b79f16ff0716d16bb336652cb5fee8512581e",
+    "taxonomy_sha256": "297dda9e0204156922993fc4fbdd084238d4cef140fd026fe7883730f1663f60",
+    "taxonomy_version": 1,
+    "n_test_items": 450
+  },
+  "predictions_sha256": {
+    "lora": "fb4833d52b78e4ff0c26ebef845f7731c62dd0dea002661051b9216afcabeed5",
+    "lora-distilled": "5148df59f3a35c49c549031ccb08ebd78920dff765292ffc4eaaf4a725267cc1"
+  },
+  "slices": {
+    "all": {
+      "n_items": 450,
+      "axes": {
+        "energy": {
+          "n": 441,
+          "lora": {
+            "accuracy": 0.7029478458049887,
+            "macro_f1": 0.6865534505983945
+          },
+          "lora-distilled": {
+            "accuracy": 0.7120181405895691,
+            "macro_f1": 0.6970888380655387
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.009070294784580435,
+              "ci": [
+                -0.009070294784580546,
+                0.027210884353741527
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.01053538746714422,
+              "ci": [
+                -0.006966390914639911,
+                0.029629881125523207
+              ],
+              "clear": false
+            }
+          }
+        },
+        "social": {
+          "n": 450,
+          "lora": {
+            "accuracy": 0.9444444444444444,
+            "macro_f1": 0.7790200252971449
+          },
+          "lora-distilled": {
+            "accuracy": 0.9377777777777778,
+            "macro_f1": 0.769205627456462
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.006666666666666599,
+              "ci": [
+                -0.022222222222222143,
+                0.008888888888888835
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.009814397840682831,
+              "ci": [
+                -0.06172945865449447,
+                0.04873917685163203
+              ],
+              "clear": false
+            }
+          }
+        },
+        "engagement": {
+          "n": 450,
+          "lora": {
+            "accuracy": 0.9555555555555556,
+            "macro_f1": 0.7896154169822435
+          },
+          "lora-distilled": {
+            "accuracy": 0.9533333333333334,
+            "macro_f1": 0.7728894945169035
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.0022222222222222365,
+              "ci": [
+                -0.008888888888888835,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.016725922465339993,
+              "ci": [
+                -0.05659633760262441,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "mood": {
+          "n": 250,
+          "lora": {
+            "accuracy": 0.332,
+            "macro_f1": 0.47255165099010343,
+            "jaccard": 0.494
+          },
+          "lora-distilled": {
+            "accuracy": 0.264,
+            "macro_f1": 0.4381889855563915,
+            "jaccard": 0.4206666666666667
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.068,
+              "ci": [
+                -0.124,
+                -0.01200000000000001
+              ],
+              "clear": true
+            },
+            "macro_f1": {
+              "value": -0.034362665433711914,
+              "ci": [
+                -0.08163580575438409,
+                0.011614550946916553
+              ],
+              "clear": false
+            },
+            "jaccard": {
+              "value": -0.0733333333333333,
+              "ci": [
+                -0.1253333333333333,
+                -0.020666666666666667
+              ],
+              "clear": true
+            }
+          }
+        },
+        "commitment": {
+          "n": 250,
+          "lora": {
+            "accuracy": 0.536,
+            "macro_f1": 0.3919317116991536
+          },
+          "lora-distilled": {
+            "accuracy": 0.548,
+            "macro_f1": 0.38646539382857786
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.01200000000000001,
+              "ci": [
+                -0.051999999999999935,
+                0.06400000000000006
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.005466317870575721,
+              "ci": [
+                -0.07125642381254207,
+                0.061261224159988276
+              ],
+              "clear": false
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 450,
+          "lora": {
+            "accuracy": 0.9911111111111112,
+            "macro_f1": 0.8932017543859649
+          },
+          "lora-distilled": {
+            "accuracy": 0.9866666666666667,
+            "macro_f1": 0.8348684210526316
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.004444444444444473,
+              "ci": [
+                -0.011111111111111183,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.05833333333333335,
+              "ci": [
+                -0.16666666666666674,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "district": {
+          "n": 356,
+          "lora": {
+            "accuracy": 0.9775280898876404,
+            "macro_f1": 0.7075936883629191
+          },
+          "lora-distilled": {
+            "accuracy": 0.9775280898876404,
+            "macro_f1": 0.7075936883629191
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        }
+      }
+    },
+    "clean": {
+      "n_items": 450,
+      "axes": {
+        "energy": {
+          "n": 339,
+          "lora": {
+            "accuracy": 0.6519174041297935,
+            "macro_f1": 0.6352268394967594
+          },
+          "lora-distilled": {
+            "accuracy": 0.6607669616519174,
+            "macro_f1": 0.6464163739266199
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.008849557522123908,
+              "ci": [
+                -0.014749262536873142,
+                0.03539823008849552
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.011189534429860482,
+              "ci": [
+                -0.012467655371202752,
+                0.03521419155822928
+              ],
+              "clear": false
+            }
+          }
+        },
+        "social": {
+          "n": 440,
+          "lora": {
+            "accuracy": 0.9454545454545454,
+            "macro_f1": 0.6905307776467065
+          },
+          "lora-distilled": {
+            "accuracy": 0.9409090909090909,
+            "macro_f1": 0.704162907865398
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.004545454545454519,
+              "ci": [
+                -0.018238636363636367,
+                0.00909090909090915
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.013632130218691585,
+              "ci": [
+                -0.06409701739380765,
+                0.09222490338641308
+              ],
+              "clear": false
+            }
+          }
+        },
+        "engagement": {
+          "n": 446,
+          "lora": {
+            "accuracy": 0.9596412556053812,
+            "macro_f1": 0.7727832512315271
+          },
+          "lora-distilled": {
+            "accuracy": 0.9573991031390134,
+            "macro_f1": 0.7518120270808443
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.0022421524663677195,
+              "ci": [
+                -0.006726457399103158,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.020971224150682866,
+              "ci": [
+                -0.07078401569952261,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "mood": {
+          "n": 209,
+          "lora": {
+            "accuracy": 0.3014354066985646,
+            "macro_f1": 0.4564144691435069,
+            "jaccard": 0.4688995215311005
+          },
+          "lora-distilled": {
+            "accuracy": 0.2727272727272727,
+            "macro_f1": 0.4522080410011444,
+            "jaccard": 0.4409888357256779
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.028708133971291905,
+              "ci": [
+                -0.09090909090909091,
+                0.033492822966507185
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.004206428142362495,
+              "ci": [
+                -0.05945947004537535,
+                0.04766000543436728
+              ],
+              "clear": false
+            },
+            "jaccard": {
+              "value": -0.027910685805422608,
+              "ci": [
+                -0.08534688995215309,
+                0.02793062200956932
+              ],
+              "clear": false
+            }
+          }
+        },
+        "commitment": {
+          "n": 240,
+          "lora": {
+            "accuracy": 0.5375,
+            "macro_f1": 0.3866051366051366
+          },
+          "lora-distilled": {
+            "accuracy": 0.5458333333333333,
+            "macro_f1": 0.3728020742440401
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.008333333333333304,
+              "ci": [
+                -0.05416666666666664,
+                0.0708333333333333
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.013803062361096519,
+              "ci": [
+                -0.08363214172345051,
+                0.055248045637600794
+              ],
+              "clear": false
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 450,
+          "lora": {
+            "accuracy": 0.9911111111111112,
+            "macro_f1": 0.8932017543859649
+          },
+          "lora-distilled": {
+            "accuracy": 0.9866666666666667,
+            "macro_f1": 0.8348684210526316
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.004444444444444473,
+              "ci": [
+                -0.011111111111111183,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.05833333333333335,
+              "ci": [
+                -0.16666666666666674,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "district": {
+          "n": 321,
+          "lora": {
+            "accuracy": 0.9813084112149533,
+            "macro_f1": 0.7113079729025534
+          },
+          "lora-distilled": {
+            "accuracy": 0.9813084112149533,
+            "macro_f1": 0.7113079729025534
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        }
+      }
+    },
+    "source=steam": {
+      "n_items": 250,
+      "axes": {
+        "energy": {
+          "n": 250,
+          "lora": {
+            "accuracy": 0.664,
+            "macro_f1": 0.6312755258209803
+          },
+          "lora-distilled": {
+            "accuracy": 0.68,
+            "macro_f1": 0.6424420737464139
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.016000000000000014,
+              "ci": [
+                -0.008000000000000007,
+                0.040000000000000036
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.01116654792543359,
+              "ci": [
+                -0.017414172944324995,
+                0.039645390621221875
+              ],
+              "clear": false
+            }
+          }
+        },
+        "social": {
+          "n": 250,
+          "lora": {
+            "accuracy": 0.904,
+            "macro_f1": 0.6990354568047046
+          },
+          "lora-distilled": {
+            "accuracy": 0.904,
+            "macro_f1": 0.7080917822533316
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                -0.020000000000000018,
+                0.02400000000000002
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.009056325448627,
+              "ci": [
+                -0.06071453681396466,
+                0.07943299666780416
+              ],
+              "clear": false
+            }
+          }
+        },
+        "engagement": {
+          "n": 250,
+          "lora": {
+            "accuracy": 0.92,
+            "macro_f1": 0.6844231254733653
+          },
+          "lora-distilled": {
+            "accuracy": 0.916,
+            "macro_f1": 0.6593342417753553
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.0040000000000000036,
+              "ci": [
+                -0.01200000000000001,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.02508888369800999,
+              "ci": [
+                -0.08366228286467754,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "mood": {
+          "n": 144,
+          "lora": {
+            "accuracy": 0.3263888888888889,
+            "macro_f1": 0.3929445501691022,
+            "jaccard": 0.5173611111111112
+          },
+          "lora-distilled": {
+            "accuracy": 0.2986111111111111,
+            "macro_f1": 0.38695799902401323,
+            "jaccard": 0.4884259259259259
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.02777777777777779,
+              "ci": [
+                -0.09722222222222224,
+                0.048611111111111105
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.0059865511450889475,
+              "ci": [
+                -0.050755923496182784,
+                0.04350665203735543
+              ],
+              "clear": false
+            },
+            "jaccard": {
+              "value": -0.028935185185185286,
+              "ci": [
+                -0.08914930555555564,
+                0.03587962962962954
+              ],
+              "clear": false
+            }
+          }
+        },
+        "commitment": {
+          "n": 144,
+          "lora": {
+            "accuracy": 0.3263888888888889,
+            "macro_f1": 0.28296857463524133
+          },
+          "lora-distilled": {
+            "accuracy": 0.3611111111111111,
+            "macro_f1": 0.32267402362396735
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.03472222222222221,
+              "ci": [
+                -0.05555555555555558,
+                0.125
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.03970544898872602,
+              "ci": [
+                -0.047481022710963425,
+                0.1250207721599737
+              ],
+              "clear": false
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 250,
+          "lora": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "lora-distilled": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "district": {
+          "n": 250,
+          "lora": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "lora-distilled": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        }
+      }
+    },
+    "source=ticketmaster": {
+      "n_items": 200,
+      "axes": {
+        "energy": {
+          "n": 191,
+          "lora": {
+            "accuracy": 0.7539267015706806,
+            "macro_f1": 0.4892445098459997
+          },
+          "lora-distilled": {
+            "accuracy": 0.7539267015706806,
+            "macro_f1": 0.4866328467834801
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                -0.03141361256544506,
+                0.03141361256544506
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.002611663062519587,
+              "ci": [
+                -0.03381116624911623,
+                0.02571945448476364
+              ],
+              "clear": false
+            }
+          }
+        },
+        "social": {
+          "n": 200,
+          "lora": {
+            "accuracy": 0.995,
+            "macro_f1": 0.8987341772151899
+          },
+          "lora-distilled": {
+            "accuracy": 0.98,
+            "macro_f1": 0.7806122448979591
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.015000000000000013,
+              "ci": [
+                -0.03500000000000003,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.11812193231723078,
+              "ci": [
+                -0.30507614213197964,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "engagement": {
+          "n": 200,
+          "lora": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "lora-distilled": {
+            "accuracy": 1.0,
+            "macro_f1": 1.0
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "mood": {
+          "n": 106,
+          "lora": {
+            "accuracy": 0.33962264150943394,
+            "macro_f1": 0.3926990553306343,
+            "jaccard": 0.46226415094339623
+          },
+          "lora-distilled": {
+            "accuracy": 0.2169811320754717,
+            "macro_f1": 0.23054450137018945,
+            "jaccard": 0.3286163522012579
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.12264150943396224,
+              "ci": [
+                -0.20754716981132076,
+                -0.047169811320754707
+              ],
+              "clear": true
+            },
+            "macro_f1": {
+              "value": -0.16215455396044487,
+              "ci": [
+                -0.24150523803247434,
+                -0.08699711279094687
+              ],
+              "clear": true
+            },
+            "jaccard": {
+              "value": -0.13364779874213834,
+              "ci": [
+                -0.2217374213836478,
+                -0.04870283018867922
+              ],
+              "clear": true
+            }
+          }
+        },
+        "commitment": {
+          "n": 106,
+          "lora": {
+            "accuracy": 0.8207547169811321,
+            "macro_f1": 0.3005181347150259
+          },
+          "lora-distilled": {
+            "accuracy": 0.8018867924528302,
+            "macro_f1": 0.29668411867364747
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.018867924528301883,
+              "ci": [
+                -0.047169811320754707,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.003834016041378452,
+              "ci": [
+                -0.009945767419167195,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 200,
+          "lora": {
+            "accuracy": 0.98,
+            "macro_f1": 0.8576023391812866
+          },
+          "lora-distilled": {
+            "accuracy": 0.97,
+            "macro_f1": 0.7798245614035088
+          },
+          "difference": {
+            "accuracy": {
+              "value": -0.010000000000000009,
+              "ci": [
+                -0.025000000000000022,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": -0.07777777777777783,
+              "ci": [
+                -0.24242424242424232,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        },
+        "district": {
+          "n": 106,
+          "lora": {
+            "accuracy": 0.9245283018867925,
+            "macro_f1": 0.6101249178172256
+          },
+          "lora-distilled": {
+            "accuracy": 0.9245283018867925,
+            "macro_f1": 0.6101249178172256
+          },
+          "difference": {
+            "accuracy": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            },
+            "macro_f1": {
+              "value": 0.0,
+              "ci": [
+                0.0,
+                0.0
+              ],
+              "clear": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

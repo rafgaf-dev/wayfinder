@@ -26,3 +26,6 @@ infra/aws/*.tfstate
 infra/aws/*.tfstate.*
 infra/aws/terraform.tfvars
 infra/aws/crash.log
+
+# macOS folder metadata
+.DS_Store

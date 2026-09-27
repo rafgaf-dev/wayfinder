@@ -1,0 +1,113 @@
+{
+  "created_at": "2026-09-27T14:34:53+00:00",
+  "teacher_axes": [
+    "mood",
+    "commitment"
+  ],
+  "splits": {
+    "train": {
+      "items": 4422,
+      "from_examples": 12,
+      "mood": {
+        "teacher_null": 1,
+        "distribution": {
+          "intense": 2147,
+          "uplifting": 693,
+          "calm": 417,
+          "melancholic": 365,
+          "playful": 294,
+          "calm+playful": 187,
+          "intense+melancholic": 133,
+          "intense+playful": 97,
+          "uplifting+intense": 36,
+          "melancholic+playful": 26,
+          "calm+uplifting": 9,
+          "uplifting+melancholic": 7,
+          "uplifting+playful": 4,
+          "calm+intense": 2,
+          "calm+melancholic": 2,
+          "None": 1,
+          "melancholic+calm": 1,
+          "playful+calm": 1
+        },
+        "silver_distribution": {
+          "None": 3236,
+          "playful": 262,
+          "intense": 255,
+          "uplifting": 208,
+          "calm": 143,
+          "intense+melancholic": 78,
+          "playful+calm": 74,
+          "melancholic": 70,
+          "intense+playful": 58,
+          "playful+melancholic": 24,
+          "calm+melancholic": 7,
+          "intense+calm": 4,
+          "calm+uplifting": 2,
+          "playful+uplifting": 1
+        },
+        "agreement_with_silver_where_present": 0.3760539629005059
+      },
+      "commitment": {
+        "teacher_null": 1,
+        "distribution": {
+          "an-evening": 2318,
+          "ongoing": 1686,
+          "minutes": 417,
+          "None": 1
+        },
+        "silver_distribution": {
+          "None": 2466,
+          "an-evening": 1339,
+          "ongoing": 493,
+          "minutes": 124
+        },
+        "agreement_with_silver_where_present": 0.815439672801636
+      }
+    },
+    "val": {
+      "items": 100,
+      "from_examples": 0,
+      "mood": {
+        "teacher_null": 0,
+        "distribution": {
+          "intense": 39,
+          "uplifting": 34,
+          "playful": 12,
+          "calm": 5,
+          "melancholic": 4,
+          "intense+melancholic": 3,
+          "intense+playful": 2,
+          "uplifting+melancholic": 1
+        },
+        "silver_distribution": {
+          "None": 63,
+          "playful": 16,
+          "uplifting": 8,
+          "intense": 5,
+          "playful+calm": 3,
+          "calm": 2,
+          "intense+melancholic": 1,
+          "melancholic": 1,
+          "intense+playful": 1
+        },
+        "agreement_with_silver_where_present": 0.35135135135135137
+      },
+      "commitment": {
+        "teacher_null": 0,
+        "distribution": {
+          "an-evening": 60,
+          "ongoing": 33,
+          "minutes": 7
+        },
+        "silver_distribution": {
+          "an-evening": 52,
+          "None": 34,
+          "ongoing": 13,
+          "minutes": 1
+        },
+        "agreement_with_silver_where_present": 0.9393939393939394
+      }
+    }
+  }
+}
