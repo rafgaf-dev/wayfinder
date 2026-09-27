@@ -37,12 +37,15 @@ The first model step downloads Qwen2.5-3B-Instruct (about 6 GB) into `%USERPROFI
 
 ## 2. Memory: the display shares the card
 
-Windows reserves part of the card's memory for the display, and newer NVIDIA drivers can quietly spill over
-into system RAM when the card is full. That makes a run crawl instead of failing with a clear error.
+The fp16 teacher is right at the edge of 8 GB: its weights alone take about 5.75 GiB, PyTorch can claim only
+about 6.9 GiB once the CUDA runtime and Windows have theirs, and reading a 3,300-token few-shot prompt briefly
+needs more than the rest. On the 4060 Ti it ran out of memory even at batch 1.
+- **Keep NVIDIA Control Panel → Manage 3D settings → CUDA – Sysmem Fallback Policy on "Driver Default"**
+  (the factory setting). It lets the driver put what doesn't fit into system RAM instead of failing. The
+  weights load first and stay on the card; only the brief overflow from long prompts spills, so the cost is
+  small: the teacher ran at 0.38 items/s at batch 1, spilling about 1 GB, the same rate as a T4 at batch 8.
+  Numerically nothing changes. Setting it to "Prefer No Sysmem Fallback" turns near-fits into crashes.
 - Close anything else using the GPU (browsers with hardware acceleration, games, video).
-- Recommended while testing: NVIDIA Control Panel → Manage 3D settings → **CUDA – Sysmem Fallback Policy →
-  Prefer No Sysmem Fallback**. A run that doesn't fit then stops with "CUDA out of memory" instead of slowing
-  down. Set it back afterwards if you like.
 - If the CPU has integrated graphics, plugging the monitor into the motherboard frees the card entirely.
 - `nvidia-smi` in a second PowerShell window shows memory use while a step runs.
 
@@ -59,19 +62,20 @@ The teacher (few-shot Qwen, fp16) labels the training items. The Colab run's pro
    ```powershell
    (Get-Content results\predictions\teacher-train.jsonl).Count
    ```
-3. Continue with small batches, which the fp16 model needs on 8 GB:
+3. Continue at batch 1, with the sysmem fallback on (step 2):
    ```powershell
-   .venv\Scripts\python src\distill.py label train --batch-size 2
+   .venv\Scripts\python src\distill.py label train --batch-size 1
    ```
-   Within a minute it prints a line like `8/3202  0.40 items/s, ~130 min left`.
-   - **"CUDA out of memory"**: run it again with `--batch-size 1`. Nothing is lost: every finished batch is
-     already saved.
-   - **Far slower than about 0.3 items/s**: the card is probably spilling into system RAM (see step 2). Stop
-     with Ctrl+C and either free memory or finish on Colab once the allowance resets.
+   Within a minute it prints a line like `8/3150  0.38 items/s, ~138 min left`.
+   - **"CUDA out of memory"**: check that the fallback policy is on Driver Default, and that `nvidia-smi` shows
+     no leftover `python.exe` from an earlier run. Nothing is lost: every finished batch is already saved.
+   - **The rate is what to watch.** A little spill costs little (0.38 items/s here). If the rate falls to
+     something like 0.05, too much is spilling: stop with Ctrl+C and free GPU memory, or finish on a larger
+     GPU.
    - Ctrl+C is always safe. Re-running the same command resumes.
 4. Label the 100 validation items:
    ```powershell
-   .venv\Scripts\python src\distill.py label val --batch-size 2
+   .venv\Scripts\python src\distill.py label val --batch-size 1
    ```
 5. Copy `teacher-train.*` and `teacher-val.*` from `results\predictions\` back to the Drive folder, so that
    Colab and the Mac have them.
