@@ -1,0 +1,28 @@
+#!/bin/bash
+# Boot script (runs once, as root). Terraform fills in the dollar-brace placeholders below;
+# anything meant for bash itself avoids that syntax.
+set -euo pipefail
+exec > >(tee -a /var/log/wayfinder-bootstrap.log) 2>&1
+
+# Hard cap on running time, whatever happens next.
+shutdown -h +${max_minutes}
+
+cat > /etc/wayfinder.env <<EOF
+BUCKET=${bucket}
+REGION=${region}
+TOKEN_PARAMETER=${token_parameter}
+DATA_REPO=${data_repo}
+EOF
+
+# First boot often has unattended upgrades holding the apt lock; wait for it.
+apt-get -o DPkg::Lock::Timeout=600 update -y -q
+apt-get -o DPkg::Lock::Timeout=600 install -y -q python3.12-venv git unzip curl
+
+if ! command -v aws >/dev/null 2>&1; then
+  curl -sSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip
+  unzip -q /tmp/awscliv2.zip -d /tmp
+  /tmp/aws/install
+fi
+
+sudo -u ubuntu -H git clone --depth 1 --branch ${branch} ${public_repo_url} /home/ubuntu/wayfinder
+sudo -u ubuntu -H bash /home/ubuntu/wayfinder/infra/aws/job.sh

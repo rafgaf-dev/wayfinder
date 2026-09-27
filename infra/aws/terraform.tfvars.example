@@ -1,0 +1,5 @@
+# Copy to terraform.tfvars (git-ignored) and edit. Only budget_email is
+# needed; the rest have sensible defaults in variables.tf.
+region       = "us-east-1"
+budget_email = "you@example.com"
+# subnet_id  = "subnet-0123456789abcdef0"  # only if the default AZ has no g4dn capacity

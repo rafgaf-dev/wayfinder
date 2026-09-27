@@ -19,3 +19,10 @@ __pycache__/
 
 # Training outputs: checkpoints and adapters (~100 MB+); kept on Drive, not in git
 outputs/
+
+# Terraform: provider downloads, state (resource details) and personal settings
+infra/aws/.terraform/
+infra/aws/*.tfstate
+infra/aws/*.tfstate.*
+infra/aws/terraform.tfvars
+infra/aws/crash.log
