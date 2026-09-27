@@ -272,3 +272,9 @@ results/                      scores, comparisons, predictions, run metadata
 tests/                        113 tests, including guards on public outputs and file encodings
 notebooks/, docs/, infra/aws/ ways to run the GPU steps
 ```
+
+## Licence
+
+[MIT](LICENSE), covering everything in this repository: the code, the hand labels, the prompts and the results.
+The third-party descriptions the models read are not part of it. They are kept in a private repository
+under Steam's and Ticketmaster's terms.
