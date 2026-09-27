@@ -69,7 +69,7 @@ PLATFORM = (
 
 
 def load_taxonomy(path: Path = TAXONOMY_PATH) -> dict:
-    return yaml.safe_load(path.read_text())
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 def output_order(taxonomy: dict) -> list[str]:
@@ -237,7 +237,7 @@ def load_fewshot(taxonomy: dict, path: Path = FEWSHOT_PATH, require_verified: bo
                  texts: dict[str, str] | None = None) -> list[dict]:
     """The examples with their texts attached, from the private train split
     unless `texts` is given."""
-    examples = json.loads(path.read_text())["examples"]
+    examples = json.loads(path.read_text(encoding="utf-8"))["examples"]
     for ex in examples:
         validate_example_labels(ex["labels"], taxonomy, f"{path.name} {ex['id']}")
     unverified = [ex["id"] for ex in examples if not ex.get("verified")]
@@ -258,7 +258,7 @@ def save_fewshot(examples: list[dict], path: Path = FEWSHOT_PATH) -> None:
             "which shows each text; labels start as the silver rules' guesses.")
     body = {"note": note, "examples": [{k: ex[k] for k in ("id", "source", "labels", "verified")} for ex in examples]}
     tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(body, indent=2, ensure_ascii=False) + "\n")
+    tmp.write_text(json.dumps(body, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     tmp.replace(path)
 
 
@@ -316,7 +316,7 @@ def review(taxonomy: dict, prompt=input, path: Path = FEWSHOT_PATH, texts: dict[
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 

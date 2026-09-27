@@ -235,7 +235,7 @@ def mentions(text: str, term: str) -> bool:
 # --- Taxonomy and mapping -----------------------------------------------------
 
 def load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text())
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 def validate_mapping(mapping: dict, taxonomy: dict) -> None:
@@ -676,7 +676,7 @@ def sha256(path: Path) -> str:
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w") as f:
+    with path.open("w", encoding="utf-8") as f:
         for row in rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
@@ -760,10 +760,10 @@ def main() -> None:
     write_both("test", [{**item, "labels": evaluation_labels(item, gold or {})} for item in test])
     write_jsonl(SILVER_RUN_PATH, [{"id": item["id"], "output": json.dumps(item["labels"])} for item in test])
     SILVER_RUN_PATH.with_suffix(".meta.json").write_text(json.dumps(
-        {"method": "silver rules from mapping.yaml", "mapping_sha256": sha256(MAPPING_PATH)}, indent=2) + "\n")
+        {"method": "silver rules from mapping.yaml", "mapping_sha256": sha256(MAPPING_PATH)}, indent=2) + "\n", encoding="utf-8")
 
     summary = report(items, splits, capped, stats, taxonomy, gold, mapping)
-    (PUBLIC_PROCESSED / "dataset_report.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
+    (PUBLIC_PROCESSED / "dataset_report.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     for source, s in summary["sources"].items():
         log.info("%s: %d candidates, %d kept; excluded %s", source, s["candidates"], s["kept"], s["excluded"])

@@ -80,7 +80,7 @@ def iter_jsonl(path: Path) -> Iterator[dict]:
     """Yield records one at a time, skipping a line truncated by a crash."""
     if not path.exists():
         return
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         for line in f:
             if not line.strip():
                 continue
@@ -102,7 +102,7 @@ def open_for_append(path: Path) -> TextIO:
         with path.open("rb") as f:
             f.seek(-1, os.SEEK_END)
             needs_newline = f.read(1) != b"\n"
-    out = path.open("a")
+    out = path.open("a", encoding="utf-8")
     if needs_newline:
         out.write("\n")
     return out

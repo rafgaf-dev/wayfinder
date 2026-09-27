@@ -102,7 +102,7 @@ def fetch_applist(key: str) -> list[dict]:
 
 def load_or_fetch_applist(path: Path) -> list[dict]:
     if path.exists():
-        apps = json.loads(path.read_text())["apps"]
+        apps = json.loads(path.read_text(encoding="utf-8"))["apps"]
         log.info("using cached app list: %s (%d apps)", path, len(apps))
         return apps
 
@@ -115,7 +115,7 @@ def load_or_fetch_applist(path: Path) -> list[dict]:
     apps = fetch_applist(key)
     snapshot = {"fetched_at": now_iso(), "source": APPLIST_URL, "apps": apps}
     tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(snapshot))
+    tmp.write_text(json.dumps(snapshot), encoding="utf-8")
     tmp.replace(path)  # atomic, so a crash never leaves a half-written list
     return apps
 

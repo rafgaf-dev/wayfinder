@@ -202,6 +202,9 @@ def train(args) -> None:
     val_set, _ = encode_all(val_items, tokenizer, taxonomy)
     print(f"train: {train_stats}")
 
+    if args.batch_size * args.grad_accumulation != BATCH_SIZE * GRAD_ACCUMULATION:
+        print(f"warning: effective batch {args.batch_size * args.grad_accumulation} differs from "
+              f"{BATCH_SIZE * GRAD_ACCUMULATION}, so this run is not directly comparable with the others")
     quantise = not args.no_4bit
     if quantise and not torch.cuda.is_available():
         raise SystemExit("4-bit QLoRA needs a CUDA GPU; use --no-4bit only for smoke tests")
@@ -215,9 +218,9 @@ def train(args) -> None:
         output_dir=str(output_dir / "checkpoints"),
         num_train_epochs=EPOCHS,
         max_steps=args.max_steps or -1,
-        per_device_train_batch_size=BATCH_SIZE,
-        per_device_eval_batch_size=BATCH_SIZE,
-        gradient_accumulation_steps=GRAD_ACCUMULATION,
+        per_device_train_batch_size=args.batch_size,
+        per_device_eval_batch_size=args.batch_size,
+        gradient_accumulation_steps=args.grad_accumulation,
         learning_rate=LEARNING_RATE,
         lr_scheduler_type="cosine",
         warmup_steps=WARMUP,
@@ -261,7 +264,7 @@ def train(args) -> None:
         "quantised_4bit": quantise,
         "lora": {"r": LORA_R, "alpha": LORA_ALPHA, "dropout": LORA_DROPOUT, "targets": list(LORA_TARGETS)},
         "optimisation": {"epochs": EPOCHS, "max_steps": args.max_steps, "learning_rate": LEARNING_RATE,
-                         "batch_size": BATCH_SIZE, "grad_accumulation": GRAD_ACCUMULATION, "warmup": WARMUP,
+                         "batch_size": args.batch_size, "grad_accumulation": args.grad_accumulation, "warmup": WARMUP,
                          "scheduler": "cosine", "seed": SEED},
         "data": train_stats,
         "trainable_parameters": trainable,
@@ -271,7 +274,7 @@ def train(args) -> None:
         "device_name": torch.cuda.get_device_name() if torch.cuda.is_available() else "cpu/mps",
         "log_history": trainer.state.log_history,
     }
-    (output_dir / "training_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (output_dir / "training_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"adapter saved to {adapter_dir}; best eval loss {trainer.state.best_metric}; {runtime / 60:.1f} min")
 
 
@@ -304,7 +307,7 @@ def load_for_serving(model_id: str, adapter_dir: Path, serve: str):
 def predict(args) -> None:
     taxonomy = prompts.load_taxonomy()
     output_dir = Path(args.output_dir)
-    summary = json.loads((output_dir / "training_summary.json").read_text())
+    summary = json.loads((output_dir / "training_summary.json").read_text(encoding="utf-8"))
     model, tokenizer, device = load_for_serving(summary["model"], output_dir / "adapter", args.serve)
     items = rb.read_jsonl(TEST_PATH)[:args.limit] if args.limit else rb.read_jsonl(TEST_PATH)
     system = prompts.build_messages("compact", "", taxonomy)[0]["content"]
@@ -341,6 +344,10 @@ def main() -> None:
     p_train.add_argument("--model", default=rb.MODEL_ID)
     p_train.add_argument("--resume", action="store_true", help="continue from the latest checkpoint")
     p_train.add_argument("--eval-steps", type=int, default=EVAL_STEPS)
+    # On a GPU with less memory, halve the batch and double the accumulation:
+    # the effective batch, and so the optimisation, stays the same.
+    p_train.add_argument("--batch-size", type=int, default=BATCH_SIZE)
+    p_train.add_argument("--grad-accumulation", type=int, default=GRAD_ACCUMULATION)
     p_train.add_argument("--max-steps", type=int, help="stop early (smoke tests)")
     p_train.add_argument("--limit-train", type=int, help="first N training items only (smoke tests)")
     p_train.add_argument("--no-4bit", action="store_true", help="unquantised; smoke tests on CPU/Mac only")

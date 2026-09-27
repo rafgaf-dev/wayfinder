@@ -94,7 +94,7 @@ def label(split: str, batch_size: int = BATCH_SIZE, limit: int | None = None,
     out_path = teacher_path(split)
     meta_path = out_path.with_suffix(".meta.json")
     done = {r["id"] for r in rb.read_jsonl(out_path)} if out_path.exists() else set()
-    previous = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    previous = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
     # Longest first, so similar lengths share a batch (less padding) and any
     # memory problem shows up in the first batch rather than an hour in.
     todo = sorted((i for i in items if i["id"] not in done), key=lambda i: (-len(i["text"]), i["id"]))
@@ -107,9 +107,15 @@ def label(split: str, batch_size: int = BATCH_SIZE, limit: int | None = None,
     config = rb.generation_config(model, tokenizer)
     system = prompts.build_messages("few_shot", "", taxonomy, examples)[0]["content"]
     totals = previous.get("totals", {"wall_s": 0.0, "input_tokens": 0, "output_tokens": 0, "items": 0})
+    # One entry per run, so the cost can be broken down by GPU when a
+    # labelling job is split across machines.
+    sessions = previous.get("sessions", [])
+    device_name = torch_device_name(device)
+    sessions.append({"device_name": device_name, "batch_size": batch_size, "items": 0, "wall_s": 0.0,
+                     "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    with out_path.open("a") as out:
+    with out_path.open("a", encoding="utf-8") as out:
         for start in range(0, len(todo), batch_size):
             batch = todo[start:start + batch_size]
             messages = [prompts.build_messages("few_shot", i["text"], taxonomy, examples) for i in batch]
@@ -121,6 +127,8 @@ def label(split: str, batch_size: int = BATCH_SIZE, limit: int | None = None,
             totals["input_tokens"] += n_in
             totals["output_tokens"] += n_out
             totals["items"] += len(batch)
+            sessions[-1]["items"] += len(batch)
+            sessions[-1]["wall_s"] = round(sessions[-1]["wall_s"] + time.perf_counter() - began, 2)
             for item, answer in zip(batch, answers):
                 out.write(json.dumps({"id": item["id"], "output": answer}, ensure_ascii=False) + "\n")
             out.flush()
@@ -129,12 +137,17 @@ def label(split: str, batch_size: int = BATCH_SIZE, limit: int | None = None,
                 "model_revision": getattr(model.config, "_commit_hash", None),
                 "system_prompt_sha256": rb.sha256_text(system), "fewshot_ids": sorted(example_ids),
                 "decoding": {**rb.decoding_settings(), "batch_size": batch_size}, "device": device,
-                "totals": totals, "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            }, indent=2) + "\n")
+                "totals": totals, "sessions": sessions, "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            }, indent=2) + "\n", encoding="utf-8")
             n = start + len(batch)
             if (start // batch_size) % 25 == 0 or n == len(todo):
                 rate = totals["items"] / totals["wall_s"]
                 print(f"  {n}/{len(todo)}  {rate:.2f} items/s, ~{(len(todo) - n) / rate / 60:.0f} min left")
+
+
+def torch_device_name(device: str) -> str:
+    import torch
+    return torch.cuda.get_device_name() if device == "cuda" else device
 
 
 # --- Build ------------------------------------------------------------------
@@ -163,7 +176,7 @@ def distil_labels(item: dict, teacher_output: str | None, example_labels: dict |
 
 def example_labels(taxonomy: dict, require_verified: bool = True) -> dict[str, dict]:
     """The few-shot examples' hand-checked labels, which become training labels."""
-    examples = json.loads(prompts.FEWSHOT_PATH.read_text())["examples"]
+    examples = json.loads(prompts.FEWSHOT_PATH.read_text(encoding="utf-8"))["examples"]
     if require_verified and not all(e.get("verified") for e in examples):
         raise SystemExit("few-shot examples are not all verified; run: python src/prompts.py review")
     for e in examples:
@@ -206,7 +219,7 @@ def build(require_verified: bool = True) -> None:
             f"{stats[a]['agreement_with_silver_where_present'] or 0:.0%}" for a in TEACHER_AXES))
 
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n")
+    REPORT_PATH.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {PRIVATE}/{{train,val}}_distilled.jsonl, public views, and {REPORT_PATH}")
 
 

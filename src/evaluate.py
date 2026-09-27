@@ -95,7 +95,7 @@ class Axis:
 
 
 def load_taxonomy(path: Path = TAXONOMY_PATH) -> tuple[int, list[Axis]]:
-    spec = yaml.safe_load(path.read_text())
+    spec = yaml.safe_load(path.read_text(encoding="utf-8"))
     axes = []
     for name, a in spec["axes"].items():
         multi = a["cardinality"] == "multi"
@@ -176,7 +176,7 @@ def parse_gold(item: dict, axes: list[Axis]) -> dict[str, Labels | None]:
 
 def read_jsonl(path: Path) -> list[dict]:
     # Strict, unlike the fetchers: processed data and predictions must be whole.
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 
@@ -437,7 +437,7 @@ def load_items(test_path: Path) -> list[dict]:
 
 def write_json(path: Path, obj: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
+    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def fmt_ci(entry: dict, metric: str) -> str:
@@ -502,7 +502,7 @@ def main() -> None:
             "run": run.name,
             **base,
             "predictions_sha256": sha256(args.predictions),
-            "meta": json.loads(meta_path.read_text()) if meta_path.exists() else None,
+            "meta": json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else None,
             "coverage": {
                 "n_test_items": len(items),
                 "n_missing": run.n_missing,

@@ -88,7 +88,7 @@ def load_texts(path: Path = PRIVATE_TEST_PATH) -> dict[str, str]:
     if not path.exists():
         raise SystemExit(f"{path} is missing: clone the private data repo into data/private/ "
                          "or run src/build_dataset.py")
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         return {item["id"]: item["text"] for item in map(json.loads, f) if item}
 
 
@@ -239,7 +239,7 @@ def main() -> None:
     args = parser.parse_args()
     if not GOLD_PATH.exists():
         raise SystemExit(f"{GOLD_PATH} does not exist; create it with build_dataset.py --freeze-test")
-    taxonomy = yaml.safe_load(TAXONOMY_PATH.read_text())
+    taxonomy = yaml.safe_load(TAXONOMY_PATH.read_text(encoding="utf-8"))
     try:
         run(GOLD_PATH, taxonomy, load_texts(), target=args.target)
     except (KeyboardInterrupt, EOFError):

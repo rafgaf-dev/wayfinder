@@ -62,7 +62,7 @@ RESUME_KEYS = ("method", "model", "model_revision", "system_prompt_sha256", "few
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    with path.open() as f:
+    with path.open(encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 
@@ -90,13 +90,13 @@ def run_majority(taxonomy: dict) -> None:
     answer = prompts.format_answer(labels, taxonomy)
     path = PREDICTIONS_DIR / "majority.jsonl"
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w") as f:
+    with path.open("w", encoding="utf-8") as f:
         for item in test:
             f.write(json.dumps({"id": item["id"], "output": answer}) + "\n")
     path.with_suffix(".meta.json").write_text(json.dumps({
         "method": "majority", "labels": labels, "source": "most common silver label per axis in train",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-    }, indent=2) + "\n")
+    }, indent=2) + "\n", encoding="utf-8")
     print(f"majority answer for all {len(test)} items: {answer}\nwrote {path}")
 
 
@@ -186,14 +186,14 @@ def generate_predictions(model, tokenizer, device: str, items: list[dict], make_
     meta_path = out_path.with_suffix(".meta.json")
     done = {r["id"] for r in read_jsonl(out_path)} if out_path.exists() else set()
     if done:
-        previous = json.loads(meta_path.read_text())
+        previous = json.loads(meta_path.read_text(encoding="utf-8"))
         mismatched = [k for k in RESUME_KEYS if previous.get(k) != meta.get(k)]
         if mismatched:
             raise SystemExit(f"{out_path} was produced with different {mismatched}; "
                              "use a new --run-name rather than mixing runs")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     meta_path.write_text(json.dumps({**meta, "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds")},
-                                    indent=2) + "\n")
+                                    indent=2) + "\n", encoding="utf-8")
 
     config = generation_config(model, tokenizer)
     todo = [item for item in items if item["id"] not in done]
@@ -201,7 +201,7 @@ def generate_predictions(model, tokenizer, device: str, items: list[dict], make_
     for item in todo[:WARMUP_ITEMS]:  # first calls pay for kernel compilation and allocation
         generate_one(model, tokenizer, device, make_messages(item), config)
 
-    with out_path.open("a") as out:
+    with out_path.open("a", encoding="utf-8") as out:
         for n, item in enumerate(todo, 1):
             record = generate_one(model, tokenizer, device, make_messages(item), config)
             out.write(json.dumps({"id": item["id"], **record}, ensure_ascii=False) + "\n")
