@@ -16,14 +16,22 @@ REPO="${HOME}/wayfinder"
 LOG="${HOME}/job.log"
 PY="${REPO}/.venv/bin/python"
 export AWS_DEFAULT_REGION="${REGION}"
+# Output goes to a log file, not a terminal, so Python would otherwise hold
+# print() output in a buffer and progress lines would appear only when each
+# step ends.
+export PYTHONUNBUFFERED=1
 exec > >(tee -a "${LOG}") 2>&1
 cd "${REPO}"
 echo "job started $(date -u +%FT%TZ) at commit $(git rev-parse --short HEAD)"
 
+upload_log() {
+  aws s3 cp "${LOG}" "${S3}/logs/job.log" --only-show-errors || true
+}
+
 sync_up() {
   aws s3 sync results/predictions "${S3}/predictions" --only-show-errors || true
   if [ -d outputs ]; then aws s3 sync outputs "${S3}/outputs" --only-show-errors || true; fi
-  aws s3 cp "${LOG}" "${S3}/logs/job.log" --only-show-errors || true
+  upload_log
 }
 
 finish() {
@@ -65,7 +73,9 @@ fi
 # The teacher's partial output is uploaded after the machine exists; starting
 # before it arrives would re-label from scratch.
 echo "waiting for ${S3}/READY"
-until aws s3 ls "${S3}/READY" >/dev/null 2>&1; do sleep 60; done
+# Upload the log while waiting, so setup and waiting are visible from outside.
+upload_log
+until aws s3 ls "${S3}/READY" >/dev/null 2>&1; do sleep 60; upload_log; done
 aws s3 sync "${S3}/predictions" results/predictions --only-show-errors
 aws s3 sync "${S3}/outputs" outputs --only-show-errors 2>/dev/null || true
 echo "teacher items already done: $(wc -l < results/predictions/teacher-train.jsonl 2>/dev/null || echo 0)"
