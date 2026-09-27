@@ -1,0 +1,1760 @@
+{
+  "run": "few_shot",
+  "created_at": "2026-09-27T10:01:13+00:00",
+  "n_bootstrap": 1000,
+  "provenance": {
+    "evaluate_sha256": "23522f8a11c34eda87b460bd6f401d338579897e158be768b9a9e39f8db0c6a5",
+    "test_sha256": "0940b0594f1f1e3d97f5e492a53b79f16ff0716d16bb336652cb5fee8512581e",
+    "taxonomy_sha256": "297dda9e0204156922993fc4fbdd084238d4cef140fd026fe7883730f1663f60",
+    "taxonomy_version": 1,
+    "n_test_items": 450
+  },
+  "predictions_sha256": "fc253837d6f10f2e05f0d2aa79b90745f8cbf3d578b32adc57b6fefeba749313",
+  "meta": {
+    "method": "few_shot",
+    "model": "Qwen/Qwen2.5-3B-Instruct",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "system_prompt_sha256": "d8413ea1d4f76930273b4a9ceab55f82476beb9da2d264d3bf2c31e26132466d",
+    "fewshot_ids": [
+      "steam:1382020",
+      "tm:LvZ18QfPSCLpNK8ZlqgXw",
+      "steam:935790",
+      "tm:LvZ18QOi6e295_8Z066o3",
+      "tm:1AgZkuVGkdSf1t8",
+      "tm:LvZ18QIU-OWcv-UZaaYOi",
+      "steam:513340",
+      "tm:LvZ18QPfA_6C8CS0HTQyh",
+      "tm:1AgZkoKGkdSsbjP",
+      "steam:2384840",
+      "steam:1752850",
+      "steam:2112550"
+    ],
+    "fewshot_verified": true,
+    "taxonomy_version": 1,
+    "limit": null,
+    "decoding": {
+      "do_sample": false,
+      "max_new_tokens": 160,
+      "repetition_penalty": 1.0,
+      "batch_size": 1
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.17.0"
+    },
+    "updated_at": "2026-09-26T20:03:23+00:00"
+  },
+  "coverage": {
+    "n_test_items": 450,
+    "n_missing": 0,
+    "n_unparsed": 0,
+    "parse_failure_rate": 0.0
+  },
+  "usage": {
+    "latency_s": {
+      "n": 450,
+      "mean": 6.718553111111111,
+      "median": 6.72395,
+      "p95": 7.07544,
+      "total": 3023.3489
+    },
+    "input_tokens": {
+      "n": 450,
+      "mean": 3316.3244444444445,
+      "median": 3332.5,
+      "p95": 3425.55,
+      "total": 1492346
+    },
+    "output_tokens": {
+      "n": 450,
+      "mean": 53.42888888888889,
+      "median": 54.0,
+      "p95": 57.0,
+      "total": 24043
+    }
+  },
+  "slices": {
+    "all": {
+      "n_items": 450,
+      "axes": {
+        "energy": {
+          "n": 441,
+          "accuracy": 0.5510204081632653,
+          "accuracy_ci": [
+            0.5079365079365079,
+            0.5964285714285713
+          ],
+          "macro_f1": 0.49183705694315577,
+          "macro_f1_ci": [
+            0.4381752939347144,
+            0.5483122535800454
+          ],
+          "invalid_rate": 0.0045351473922902496,
+          "labels": {
+            "low": {
+              "support": 74,
+              "predicted": 30,
+              "precision": 0.6333333333333333,
+              "recall": 0.25675675675675674,
+              "f1": 0.36538461538461536
+            },
+            "medium": {
+              "support": 192,
+              "predicted": 101,
+              "precision": 0.6732673267326733,
+              "recall": 0.3541666666666667,
+              "f1": 0.4641638225255973
+            },
+            "high": {
+              "support": 175,
+              "predicted": 308,
+              "precision": 0.5064935064935064,
+              "recall": 0.8914285714285715,
+              "f1": 0.6459627329192547
+            }
+          },
+          "confusion": {
+            "low": {
+              "low": 19,
+              "high": 39,
+              "medium": 15,
+              "<invalid>": 1
+            },
+            "high": {
+              "high": 156,
+              "medium": 18,
+              "low": 1
+            },
+            "medium": {
+              "high": 113,
+              "medium": 68,
+              "low": 10,
+              "<invalid>": 1
+            }
+          }
+        },
+        "social": {
+          "n": 450,
+          "accuracy": 0.5888888888888889,
+          "accuracy_ci": [
+            0.54,
+            0.6333333333333333
+          ],
+          "macro_f1": 0.47380198859746914,
+          "macro_f1_ci": [
+            0.4265993009043478,
+            0.516761568729347
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "solo": {
+              "support": 216,
+              "predicted": 148,
+              "precision": 0.9864864864864865,
+              "recall": 0.6759259259259259,
+              "f1": 0.8021978021978022
+            },
+            "small-group": {
+              "support": 18,
+              "predicted": 97,
+              "precision": 0.17525773195876287,
+              "recall": 0.9444444444444444,
+              "f1": 0.2956521739130435
+            },
+            "crowd": {
+              "support": 19,
+              "predicted": 114,
+              "precision": 0.09649122807017543,
+              "recall": 0.5789473684210527,
+              "f1": 0.16541353383458646
+            },
+            "spectator": {
+              "support": 197,
+              "predicted": 91,
+              "precision": 1.0,
+              "recall": 0.4619289340101523,
+              "f1": 0.6319444444444444
+            }
+          },
+          "confusion": {
+            "solo": {
+              "solo": 146,
+              "small-group": 62,
+              "crowd": 8
+            },
+            "crowd": {
+              "small-group": 8,
+              "crowd": 11
+            },
+            "small-group": {
+              "small-group": 17,
+              "crowd": 1
+            },
+            "spectator": {
+              "spectator": 91,
+              "crowd": 94,
+              "small-group": 10,
+              "solo": 2
+            }
+          }
+        },
+        "engagement": {
+          "n": 450,
+          "accuracy": 0.7088888888888889,
+          "accuracy_ci": [
+            0.6666666666666666,
+            0.7466666666666667
+          ],
+          "macro_f1": 0.6118110184705409,
+          "macro_f1_ci": [
+            0.5659207282291223,
+            0.6523530652627927
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "passive": {
+              "support": 200,
+              "predicted": 190,
+              "precision": 0.9263157894736842,
+              "recall": 0.88,
+              "f1": 0.9025641025641026
+            },
+            "active": {
+              "support": 229,
+              "predicted": 139,
+              "precision": 0.8992805755395683,
+              "recall": 0.5458515283842795,
+              "f1": 0.6793478260869565
+            },
+            "competitive": {
+              "support": 21,
+              "predicted": 121,
+              "precision": 0.1487603305785124,
+              "recall": 0.8571428571428571,
+              "f1": 0.2535211267605634
+            }
+          },
+          "confusion": {
+            "active": {
+              "passive": 14,
+              "active": 125,
+              "competitive": 90
+            },
+            "competitive": {
+              "competitive": 18,
+              "active": 3
+            },
+            "passive": {
+              "passive": 176,
+              "active": 11,
+              "competitive": 13
+            }
+          }
+        },
+        "mood": {
+          "n": 250,
+          "accuracy": 0.3,
+          "accuracy_ci": [
+            0.244,
+            0.36
+          ],
+          "macro_f1": 0.44565401701143814,
+          "macro_f1_ci": [
+            0.3928417886616576,
+            0.49204227494778763
+          ],
+          "jaccard": 0.442,
+          "jaccard_ci": [
+            0.388,
+            0.49334999999999996
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "calm": {
+              "support": 58,
+              "predicted": 33,
+              "precision": 0.7575757575757576,
+              "recall": 0.43103448275862066,
+              "f1": 0.5494505494505495
+            },
+            "uplifting": {
+              "support": 38,
+              "predicted": 70,
+              "precision": 0.38571428571428573,
+              "recall": 0.7105263157894737,
+              "f1": 0.5
+            },
+            "intense": {
+              "support": 105,
+              "predicted": 118,
+              "precision": 0.6101694915254238,
+              "recall": 0.6857142857142857,
+              "f1": 0.6457399103139013
+            },
+            "melancholic": {
+              "support": 33,
+              "predicted": 28,
+              "precision": 0.25,
+              "recall": 0.21212121212121213,
+              "f1": 0.22950819672131148
+            },
+            "playful": {
+              "support": 88,
+              "predicted": 24,
+              "precision": 0.7083333333333334,
+              "recall": 0.19318181818181818,
+              "f1": 0.30357142857142855
+            }
+          }
+        },
+        "commitment": {
+          "n": 250,
+          "accuracy": 0.536,
+          "accuracy_ci": [
+            0.476,
+            0.5960999999999999
+          ],
+          "macro_f1": 0.40498507340612605,
+          "macro_f1_ci": [
+            0.34166654829476917,
+            0.46546555099229353
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "minutes": {
+              "support": 49,
+              "predicted": 17,
+              "precision": 0.4117647058823529,
+              "recall": 0.14285714285714285,
+              "f1": 0.21212121212121213
+            },
+            "an-evening": {
+              "support": 159,
+              "predicted": 145,
+              "precision": 0.7448275862068966,
+              "recall": 0.6792452830188679,
+              "f1": 0.7105263157894737
+            },
+            "ongoing": {
+              "support": 42,
+              "predicted": 88,
+              "precision": 0.2159090909090909,
+              "recall": 0.4523809523809524,
+              "f1": 0.2923076923076923
+            }
+          },
+          "confusion": {
+            "an-evening": {
+              "ongoing": 46,
+              "an-evening": 108,
+              "minutes": 5
+            },
+            "ongoing": {
+              "ongoing": 19,
+              "an-evening": 18,
+              "minutes": 5
+            },
+            "minutes": {
+              "minutes": 7,
+              "ongoing": 23,
+              "an-evening": 19
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 450,
+          "accuracy": 0.9244444444444444,
+          "accuracy_ci": [
+            0.9,
+            0.9488888888888889
+          ],
+          "macro_f1": 0.6440630370090951,
+          "macro_f1_ci": [
+            0.49957838793047454,
+            0.7686947247576784
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "morning": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "afternoon": {
+              "support": 6,
+              "predicted": 6,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5
+            },
+            "evening": {
+              "support": 190,
+              "predicted": 206,
+              "precision": 0.8980582524271845,
+              "recall": 0.9736842105263158,
+              "f1": 0.9343434343434344
+            },
+            "late-night": {
+              "support": 4,
+              "predicted": 6,
+              "precision": 0.16666666666666666,
+              "recall": 0.25,
+              "f1": 0.2
+            },
+            "any": {
+              "support": 250,
+              "predicted": 232,
+              "precision": 0.978448275862069,
+              "recall": 0.908,
+              "f1": 0.941908713692946
+            }
+          },
+          "confusion": {
+            "any": {
+              "any": 227,
+              "evening": 15,
+              "late-night": 5,
+              "afternoon": 3
+            },
+            "evening": {
+              "evening": 185,
+              "any": 5
+            },
+            "late-night": {
+              "evening": 3,
+              "late-night": 1
+            },
+            "afternoon": {
+              "evening": 3,
+              "afternoon": 3
+            }
+          }
+        },
+        "district": {
+          "n": 356,
+          "accuracy": 0.9129213483146067,
+          "accuracy_ci": [
+            0.8820224719101124,
+            0.9410112359550562
+          ],
+          "macro_f1": 0.7254055296180368,
+          "macro_f1_ci": [
+            0.607619816257155,
+            0.8336724309115655
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "sport": {
+              "support": 0,
+              "predicted": 1,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "gaming": {
+              "support": 250,
+              "predicted": 234,
+              "precision": 1.0,
+              "recall": 0.936,
+              "f1": 0.9669421487603306
+            },
+            "music": {
+              "support": 81,
+              "predicted": 76,
+              "precision": 0.9473684210526315,
+              "recall": 0.8888888888888888,
+              "f1": 0.9171974522292994
+            },
+            "social": {
+              "support": 4,
+              "predicted": 7,
+              "precision": 0.2857142857142857,
+              "recall": 0.5,
+              "f1": 0.36363636363636365
+            },
+            "commerce": {
+              "support": 0,
+              "predicted": 7,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "live": {
+              "support": 21,
+              "predicted": 31,
+              "precision": 0.5483870967741935,
+              "recall": 0.8095238095238095,
+              "f1": 0.6538461538461539
+            }
+          },
+          "confusion": {
+            "gaming": {
+              "gaming": 234,
+              "social": 5,
+              "commerce": 7,
+              "live": 3,
+              "sport": 1
+            },
+            "live": {
+              "live": 17,
+              "music": 4
+            },
+            "music": {
+              "live": 9,
+              "music": 72
+            },
+            "social": {
+              "social": 2,
+              "live": 2
+            }
+          }
+        }
+      }
+    },
+    "clean": {
+      "n_items": 450,
+      "axes": {
+        "energy": {
+          "n": 339,
+          "accuracy": 0.504424778761062,
+          "accuracy_ci": [
+            0.45132743362831856,
+            0.5545722713864307
+          ],
+          "macro_f1": 0.4539562125061441,
+          "macro_f1_ci": [
+            0.3885632717880254,
+            0.5106181260344574
+          ],
+          "invalid_rate": 0.0058997050147492625,
+          "labels": {
+            "low": {
+              "support": 61,
+              "predicted": 25,
+              "precision": 0.56,
+              "recall": 0.22950819672131148,
+              "f1": 0.32558139534883723
+            },
+            "medium": {
+              "support": 161,
+              "predicted": 77,
+              "precision": 0.6883116883116883,
+              "recall": 0.32919254658385094,
+              "f1": 0.44537815126050423
+            },
+            "high": {
+              "support": 117,
+              "predicted": 235,
+              "precision": 0.4425531914893617,
+              "recall": 0.8888888888888888,
+              "f1": 0.5909090909090909
+            }
+          },
+          "confusion": {
+            "low": {
+              "low": 14,
+              "high": 34,
+              "medium": 12,
+              "<invalid>": 1
+            },
+            "high": {
+              "high": 104,
+              "medium": 12,
+              "low": 1
+            },
+            "medium": {
+              "high": 97,
+              "medium": 53,
+              "low": 10,
+              "<invalid>": 1
+            }
+          }
+        },
+        "social": {
+          "n": 440,
+          "accuracy": 0.5795454545454546,
+          "accuracy_ci": [
+            0.5318181818181819,
+            0.6272727272727273
+          ],
+          "macro_f1": 0.43953657514773714,
+          "macro_f1_ci": [
+            0.3977265066619726,
+            0.4821387842825691
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "solo": {
+              "support": 216,
+              "predicted": 148,
+              "precision": 0.9864864864864865,
+              "recall": 0.6759259259259259,
+              "f1": 0.8021978021978022
+            },
+            "small-group": {
+              "support": 11,
+              "predicted": 90,
+              "precision": 0.1111111111111111,
+              "recall": 0.9090909090909091,
+              "f1": 0.19801980198019803
+            },
+            "crowd": {
+              "support": 16,
+              "predicted": 111,
+              "precision": 0.07207207207207207,
+              "recall": 0.5,
+              "f1": 0.12598425196850394
+            },
+            "spectator": {
+              "support": 197,
+              "predicted": 91,
+              "precision": 1.0,
+              "recall": 0.4619289340101523,
+              "f1": 0.6319444444444444
+            }
+          },
+          "confusion": {
+            "solo": {
+              "solo": 146,
+              "small-group": 62,
+              "crowd": 8
+            },
+            "crowd": {
+              "small-group": 8,
+              "crowd": 8
+            },
+            "small-group": {
+              "small-group": 10,
+              "crowd": 1
+            },
+            "spectator": {
+              "spectator": 91,
+              "crowd": 94,
+              "small-group": 10,
+              "solo": 2
+            }
+          }
+        },
+        "engagement": {
+          "n": 446,
+          "accuracy": 0.7062780269058296,
+          "accuracy_ci": [
+            0.6636771300448431,
+            0.7511210762331838
+          ],
+          "macro_f1": 0.5969557175105521,
+          "macro_f1_ci": [
+            0.5525684062406334,
+            0.6382184423963094
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "passive": {
+              "support": 200,
+              "predicted": 190,
+              "precision": 0.9263157894736842,
+              "recall": 0.88,
+              "f1": 0.9025641025641026
+            },
+            "active": {
+              "support": 229,
+              "predicted": 139,
+              "precision": 0.8992805755395683,
+              "recall": 0.5458515283842795,
+              "f1": 0.6793478260869565
+            },
+            "competitive": {
+              "support": 17,
+              "predicted": 117,
+              "precision": 0.11965811965811966,
+              "recall": 0.8235294117647058,
+              "f1": 0.208955223880597
+            }
+          },
+          "confusion": {
+            "active": {
+              "passive": 14,
+              "active": 125,
+              "competitive": 90
+            },
+            "competitive": {
+              "active": 3,
+              "competitive": 14
+            },
+            "passive": {
+              "passive": 176,
+              "active": 11,
+              "competitive": 13
+            }
+          }
+        },
+        "mood": {
+          "n": 209,
+          "accuracy": 0.31100478468899523,
+          "accuracy_ci": [
+            0.24880382775119617,
+            0.37320574162679426
+          ],
+          "macro_f1": 0.46773472768871427,
+          "macro_f1_ci": [
+            0.4127093492777016,
+            0.5145197759962727
+          ],
+          "jaccard": 0.4601275917065391,
+          "jaccard_ci": [
+            0.4059011164274322,
+            0.5143540669856459
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "calm": {
+              "support": 54,
+              "predicted": 31,
+              "precision": 0.7419354838709677,
+              "recall": 0.42592592592592593,
+              "f1": 0.5411764705882353
+            },
+            "uplifting": {
+              "support": 32,
+              "predicted": 51,
+              "precision": 0.47058823529411764,
+              "recall": 0.75,
+              "f1": 0.5783132530120482
+            },
+            "intense": {
+              "support": 89,
+              "predicted": 101,
+              "precision": 0.6039603960396039,
+              "recall": 0.6853932584269663,
+              "f1": 0.6421052631578947
+            },
+            "melancholic": {
+              "support": 30,
+              "predicted": 20,
+              "precision": 0.3,
+              "recall": 0.2,
+              "f1": 0.24
+            },
+            "playful": {
+              "support": 67,
+              "predicted": 22,
+              "precision": 0.6818181818181818,
+              "recall": 0.22388059701492538,
+              "f1": 0.33707865168539325
+            }
+          }
+        },
+        "commitment": {
+          "n": 240,
+          "accuracy": 0.5333333333333333,
+          "accuracy_ci": [
+            0.4666666666666667,
+            0.6
+          ],
+          "macro_f1": 0.3951632035640878,
+          "macro_f1_ci": [
+            0.3285762747195677,
+            0.4593731769806858
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "minutes": {
+              "support": 47,
+              "predicted": 16,
+              "precision": 0.4375,
+              "recall": 0.14893617021276595,
+              "f1": 0.2222222222222222
+            },
+            "an-evening": {
+              "support": 156,
+              "predicted": 143,
+              "precision": 0.7412587412587412,
+              "recall": 0.6794871794871795,
+              "f1": 0.7090301003344481
+            },
+            "ongoing": {
+              "support": 37,
+              "predicted": 81,
+              "precision": 0.18518518518518517,
+              "recall": 0.40540540540540543,
+              "f1": 0.2542372881355932
+            }
+          },
+          "confusion": {
+            "an-evening": {
+              "ongoing": 45,
+              "an-evening": 106,
+              "minutes": 5
+            },
+            "ongoing": {
+              "ongoing": 15,
+              "an-evening": 18,
+              "minutes": 4
+            },
+            "minutes": {
+              "minutes": 7,
+              "ongoing": 21,
+              "an-evening": 19
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 450,
+          "accuracy": 0.9244444444444444,
+          "accuracy_ci": [
+            0.9,
+            0.9466666666666667
+          ],
+          "macro_f1": 0.6440630370090951,
+          "macro_f1_ci": [
+            0.515725002898057,
+            0.7650998356995908
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "morning": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "afternoon": {
+              "support": 6,
+              "predicted": 6,
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5
+            },
+            "evening": {
+              "support": 190,
+              "predicted": 206,
+              "precision": 0.8980582524271845,
+              "recall": 0.9736842105263158,
+              "f1": 0.9343434343434344
+            },
+            "late-night": {
+              "support": 4,
+              "predicted": 6,
+              "precision": 0.16666666666666666,
+              "recall": 0.25,
+              "f1": 0.2
+            },
+            "any": {
+              "support": 250,
+              "predicted": 232,
+              "precision": 0.978448275862069,
+              "recall": 0.908,
+              "f1": 0.941908713692946
+            }
+          },
+          "confusion": {
+            "any": {
+              "any": 227,
+              "evening": 15,
+              "late-night": 5,
+              "afternoon": 3
+            },
+            "evening": {
+              "evening": 185,
+              "any": 5
+            },
+            "late-night": {
+              "evening": 3,
+              "late-night": 1
+            },
+            "afternoon": {
+              "evening": 3,
+              "afternoon": 3
+            }
+          }
+        },
+        "district": {
+          "n": 321,
+          "accuracy": 0.9127725856697819,
+          "accuracy_ci": [
+            0.881619937694704,
+            0.9439252336448598
+          ],
+          "macro_f1": 0.693586567457262,
+          "macro_f1_ci": [
+            0.5951161572900027,
+            0.8683790460785434
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "sport": {
+              "support": 0,
+              "predicted": 1,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "gaming": {
+              "support": 250,
+              "predicted": 234,
+              "precision": 1.0,
+              "recall": 0.936,
+              "f1": 0.9669421487603306
+            },
+            "music": {
+              "support": 48,
+              "predicted": 44,
+              "precision": 0.9318181818181818,
+              "recall": 0.8541666666666666,
+              "f1": 0.8913043478260869
+            },
+            "social": {
+              "support": 3,
+              "predicted": 6,
+              "precision": 0.16666666666666666,
+              "recall": 0.3333333333333333,
+              "f1": 0.2222222222222222
+            },
+            "commerce": {
+              "support": 0,
+              "predicted": 7,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "live": {
+              "support": 20,
+              "predicted": 29,
+              "precision": 0.5862068965517241,
+              "recall": 0.85,
+              "f1": 0.6938775510204082
+            }
+          },
+          "confusion": {
+            "gaming": {
+              "gaming": 234,
+              "social": 5,
+              "commerce": 7,
+              "live": 3,
+              "sport": 1
+            },
+            "live": {
+              "live": 17,
+              "music": 3
+            },
+            "music": {
+              "live": 7,
+              "music": 41
+            },
+            "social": {
+              "social": 1,
+              "live": 2
+            }
+          }
+        }
+      }
+    },
+    "source=steam": {
+      "n_items": 250,
+      "axes": {
+        "energy": {
+          "n": 250,
+          "accuracy": 0.564,
+          "accuracy_ci": [
+            0.5,
+            0.628
+          ],
+          "macro_f1": 0.45389938546600694,
+          "macro_f1_ci": [
+            0.38478857688064194,
+            0.5213110981145292
+          ],
+          "invalid_rate": 0.008,
+          "labels": {
+            "low": {
+              "support": 72,
+              "predicted": 26,
+              "precision": 0.7307692307692307,
+              "recall": 0.2638888888888889,
+              "f1": 0.3877551020408163
+            },
+            "medium": {
+              "support": 66,
+              "predicted": 29,
+              "precision": 0.41379310344827586,
+              "recall": 0.18181818181818182,
+              "f1": 0.25263157894736843
+            },
+            "high": {
+              "support": 112,
+              "predicted": 193,
+              "precision": 0.5699481865284974,
+              "recall": 0.9821428571428571,
+              "f1": 0.7213114754098361
+            }
+          },
+          "confusion": {
+            "low": {
+              "low": 19,
+              "high": 37,
+              "medium": 15,
+              "<invalid>": 1
+            },
+            "high": {
+              "high": 110,
+              "medium": 2
+            },
+            "medium": {
+              "high": 46,
+              "medium": 12,
+              "low": 7,
+              "<invalid>": 1
+            }
+          }
+        },
+        "social": {
+          "n": 250,
+          "accuracy": 0.684,
+          "accuracy_ci": [
+            0.624,
+            0.74
+          ],
+          "macro_f1": 0.5384292809707175,
+          "macro_f1_ci": [
+            0.43862778174801687,
+            0.6240017562988868
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "solo": {
+              "support": 216,
+              "predicted": 146,
+              "precision": 1.0,
+              "recall": 0.6759259259259259,
+              "f1": 0.8066298342541437
+            },
+            "small-group": {
+              "support": 18,
+              "predicted": 87,
+              "precision": 0.19540229885057472,
+              "recall": 0.9444444444444444,
+              "f1": 0.3238095238095238
+            },
+            "crowd": {
+              "support": 16,
+              "predicted": 17,
+              "precision": 0.47058823529411764,
+              "recall": 0.5,
+              "f1": 0.48484848484848486
+            },
+            "spectator": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "confusion": {
+            "solo": {
+              "solo": 146,
+              "small-group": 62,
+              "crowd": 8
+            },
+            "crowd": {
+              "small-group": 8,
+              "crowd": 8
+            },
+            "small-group": {
+              "small-group": 17,
+              "crowd": 1
+            }
+          }
+        },
+        "engagement": {
+          "n": 250,
+          "accuracy": 0.572,
+          "accuracy_ci": [
+            0.508,
+            0.632
+          ],
+          "macro_f1": 0.4896749397433392,
+          "macro_f1_ci": [
+            0.42366713156775776,
+            0.5534490244263862
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "passive": {
+              "support": 0,
+              "predicted": 14,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "active": {
+              "support": 229,
+              "predicted": 128,
+              "precision": 0.9765625,
+              "recall": 0.5458515283842795,
+              "f1": 0.7002801120448179
+            },
+            "competitive": {
+              "support": 21,
+              "predicted": 108,
+              "precision": 0.16666666666666666,
+              "recall": 0.8571428571428571,
+              "f1": 0.27906976744186046
+            }
+          },
+          "confusion": {
+            "active": {
+              "passive": 14,
+              "active": 125,
+              "competitive": 90
+            },
+            "competitive": {
+              "competitive": 18,
+              "active": 3
+            }
+          }
+        },
+        "mood": {
+          "n": 144,
+          "accuracy": 0.3680555555555556,
+          "accuracy_ci": [
+            0.2847222222222222,
+            0.4513888888888889
+          ],
+          "macro_f1": 0.38522910216718265,
+          "macro_f1_ci": [
+            0.32980825566726724,
+            0.49559989600361926
+          ],
+          "jaccard": 0.5092592592592592,
+          "jaccard_ci": [
+            0.4397858796296296,
+            0.5821759259259259
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "calm": {
+              "support": 49,
+              "predicted": 27,
+              "precision": 0.8518518518518519,
+              "recall": 0.46938775510204084,
+              "f1": 0.6052631578947368
+            },
+            "uplifting": {
+              "support": 3,
+              "predicted": 1,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "intense": {
+              "support": 61,
+              "predicted": 92,
+              "precision": 0.5869565217391305,
+              "recall": 0.8852459016393442,
+              "f1": 0.7058823529411765
+            },
+            "melancholic": {
+              "support": 6,
+              "predicted": 19,
+              "precision": 0.15789473684210525,
+              "recall": 0.5,
+              "f1": 0.24
+            },
+            "playful": {
+              "support": 59,
+              "predicted": 21,
+              "precision": 0.7142857142857143,
+              "recall": 0.2542372881355932,
+              "f1": 0.375
+            }
+          }
+        },
+        "commitment": {
+          "n": 144,
+          "accuracy": 0.3333333333333333,
+          "accuracy_ci": [
+            0.2569444444444444,
+            0.4098958333333332
+          ],
+          "macro_f1": 0.3136727737346932,
+          "macro_f1_ci": [
+            0.23375962442460355,
+            0.3925926971579145
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "minutes": {
+              "support": 41,
+              "predicted": 14,
+              "precision": 0.42857142857142855,
+              "recall": 0.14634146341463414,
+              "f1": 0.21818181818181817
+            },
+            "an-evening": {
+              "support": 72,
+              "predicted": 42,
+              "precision": 0.5476190476190477,
+              "recall": 0.3194444444444444,
+              "f1": 0.40350877192982454
+            },
+            "ongoing": {
+              "support": 31,
+              "predicted": 88,
+              "precision": 0.2159090909090909,
+              "recall": 0.6129032258064516,
+              "f1": 0.31932773109243695
+            }
+          },
+          "confusion": {
+            "an-evening": {
+              "ongoing": 46,
+              "an-evening": 23,
+              "minutes": 3
+            },
+            "ongoing": {
+              "ongoing": 19,
+              "an-evening": 7,
+              "minutes": 5
+            },
+            "minutes": {
+              "minutes": 6,
+              "ongoing": 23,
+              "an-evening": 12
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 250,
+          "accuracy": 0.908,
+          "accuracy_ci": [
+            0.876,
+            0.944
+          ],
+          "macro_f1": 0.9517819706498952,
+          "macro_f1_ci": [
+            0.9339019189765458,
+            0.9711934156378601
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "morning": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "afternoon": {
+              "support": 0,
+              "predicted": 3,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "evening": {
+              "support": 0,
+              "predicted": 15,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "late-night": {
+              "support": 0,
+              "predicted": 5,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "any": {
+              "support": 250,
+              "predicted": 227,
+              "precision": 1.0,
+              "recall": 0.908,
+              "f1": 0.9517819706498952
+            }
+          },
+          "confusion": {
+            "any": {
+              "any": 227,
+              "evening": 15,
+              "late-night": 5,
+              "afternoon": 3
+            }
+          }
+        },
+        "district": {
+          "n": 250,
+          "accuracy": 0.936,
+          "accuracy_ci": [
+            0.9079,
+            0.964
+          ],
+          "macro_f1": 0.9669421487603306,
+          "macro_f1_ci": [
+            0.9517269171819672,
+            0.9816700610997964
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "sport": {
+              "support": 0,
+              "predicted": 1,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "gaming": {
+              "support": 250,
+              "predicted": 234,
+              "precision": 1.0,
+              "recall": 0.936,
+              "f1": 0.9669421487603306
+            },
+            "music": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "social": {
+              "support": 0,
+              "predicted": 5,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "commerce": {
+              "support": 0,
+              "predicted": 7,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "live": {
+              "support": 0,
+              "predicted": 3,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "gaming": {
+              "gaming": 234,
+              "social": 5,
+              "commerce": 7,
+              "live": 3,
+              "sport": 1
+            }
+          }
+        }
+      }
+    },
+    "source=ticketmaster": {
+      "n_items": 200,
+      "axes": {
+        "energy": {
+          "n": 191,
+          "accuracy": 0.5340314136125655,
+          "accuracy_ci": [
+            0.46596858638743455,
+            0.6020942408376964
+          ],
+          "macro_f1": 0.3608368327469451,
+          "macro_f1_ci": [
+            0.31439296722557913,
+            0.586824625103839
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "low": {
+              "support": 2,
+              "predicted": 4,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "medium": {
+              "support": 126,
+              "predicted": 72,
+              "precision": 0.7777777777777778,
+              "recall": 0.4444444444444444,
+              "f1": 0.5656565656565656
+            },
+            "high": {
+              "support": 63,
+              "predicted": 115,
+              "precision": 0.4,
+              "recall": 0.7301587301587301,
+              "f1": 0.5168539325842697
+            }
+          },
+          "confusion": {
+            "medium": {
+              "high": 67,
+              "low": 3,
+              "medium": 56
+            },
+            "high": {
+              "medium": 16,
+              "high": 46,
+              "low": 1
+            },
+            "low": {
+              "high": 2
+            }
+          }
+        },
+        "social": {
+          "n": 200,
+          "accuracy": 0.47,
+          "accuracy_ci": [
+            0.40487500000000004,
+            0.535
+          ],
+          "macro_f1": 0.34597222222222224,
+          "macro_f1_ci": [
+            0.3030305834332593,
+            0.6440677966101694
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "solo": {
+              "support": 0,
+              "predicted": 2,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "small-group": {
+              "support": 0,
+              "predicted": 10,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "crowd": {
+              "support": 3,
+              "predicted": 97,
+              "precision": 0.030927835051546393,
+              "recall": 1.0,
+              "f1": 0.06
+            },
+            "spectator": {
+              "support": 197,
+              "predicted": 91,
+              "precision": 1.0,
+              "recall": 0.4619289340101523,
+              "f1": 0.6319444444444444
+            }
+          },
+          "confusion": {
+            "spectator": {
+              "spectator": 91,
+              "crowd": 94,
+              "small-group": 10,
+              "solo": 2
+            },
+            "crowd": {
+              "crowd": 3
+            }
+          }
+        },
+        "engagement": {
+          "n": 200,
+          "accuracy": 0.88,
+          "accuracy_ci": [
+            0.83,
+            0.920125
+          ],
+          "macro_f1": 0.9361702127659575,
+          "macro_f1_ci": [
+            0.907103825136612,
+            0.958400974025974
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "passive": {
+              "support": 200,
+              "predicted": 176,
+              "precision": 1.0,
+              "recall": 0.88,
+              "f1": 0.9361702127659575
+            },
+            "active": {
+              "support": 0,
+              "predicted": 11,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            },
+            "competitive": {
+              "support": 0,
+              "predicted": 13,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "passive": {
+              "passive": 176,
+              "active": 11,
+              "competitive": 13
+            }
+          }
+        },
+        "mood": {
+          "n": 106,
+          "accuracy": 0.20754716981132076,
+          "accuracy_ci": [
+            0.1320754716981132,
+            0.2830188679245283
+          ],
+          "macro_f1": 0.32948107448107444,
+          "macro_f1_ci": [
+            0.24318264116721885,
+            0.405830746773615
+          ],
+          "jaccard": 0.35062893081761004,
+          "jaccard_ci": [
+            0.27511792452830186,
+            0.42452830188679247
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "calm": {
+              "support": 9,
+              "predicted": 6,
+              "precision": 0.3333333333333333,
+              "recall": 0.2222222222222222,
+              "f1": 0.26666666666666666
+            },
+            "uplifting": {
+              "support": 35,
+              "predicted": 69,
+              "precision": 0.391304347826087,
+              "recall": 0.7714285714285715,
+              "f1": 0.5192307692307693
+            },
+            "intense": {
+              "support": 44,
+              "predicted": 26,
+              "precision": 0.6923076923076923,
+              "recall": 0.4090909090909091,
+              "f1": 0.5142857142857142
+            },
+            "melancholic": {
+              "support": 27,
+              "predicted": 9,
+              "precision": 0.4444444444444444,
+              "recall": 0.14814814814814814,
+              "f1": 0.2222222222222222
+            },
+            "playful": {
+              "support": 29,
+              "predicted": 3,
+              "precision": 0.6666666666666666,
+              "recall": 0.06896551724137931,
+              "f1": 0.125
+            }
+          }
+        },
+        "commitment": {
+          "n": 106,
+          "accuracy": 0.8113207547169812,
+          "accuracy_ci": [
+            0.7358490566037735,
+            0.8867924528301887
+          ],
+          "macro_f1": 0.3588516746411483,
+          "macro_f1_ci": [
+            0.2867383512544803,
+            0.46970498637165303
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "minutes": {
+              "support": 8,
+              "predicted": 3,
+              "precision": 0.3333333333333333,
+              "recall": 0.125,
+              "f1": 0.18181818181818182
+            },
+            "an-evening": {
+              "support": 87,
+              "predicted": 103,
+              "precision": 0.8252427184466019,
+              "recall": 0.9770114942528736,
+              "f1": 0.8947368421052632
+            },
+            "ongoing": {
+              "support": 11,
+              "predicted": 0,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "an-evening": {
+              "an-evening": 85,
+              "minutes": 2
+            },
+            "ongoing": {
+              "an-evening": 11
+            },
+            "minutes": {
+              "an-evening": 7,
+              "minutes": 1
+            }
+          }
+        },
+        "time_of_day": {
+          "n": 200,
+          "accuracy": 0.945,
+          "accuracy_ci": [
+            0.91,
+            0.975
+          ],
+          "macro_f1": 0.6792650918635171,
+          "macro_f1_ci": [
+            0.43043714215731294,
+            0.8828282828282829
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "morning": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "afternoon": {
+              "support": 6,
+              "predicted": 3,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            },
+            "evening": {
+              "support": 190,
+              "predicted": 191,
+              "precision": 0.9685863874345549,
+              "recall": 0.9736842105263158,
+              "f1": 0.9711286089238845
+            },
+            "late-night": {
+              "support": 4,
+              "predicted": 1,
+              "precision": 1.0,
+              "recall": 0.25,
+              "f1": 0.4
+            },
+            "any": {
+              "support": 0,
+              "predicted": 5,
+              "precision": 0.0,
+              "recall": null,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "evening": {
+              "evening": 185,
+              "any": 5
+            },
+            "late-night": {
+              "evening": 3,
+              "late-night": 1
+            },
+            "afternoon": {
+              "evening": 3,
+              "afternoon": 3
+            }
+          }
+        },
+        "district": {
+          "n": 106,
+          "accuracy": 0.8584905660377359,
+          "accuracy_ci": [
+            0.7924528301886793,
+            0.9150943396226415
+          ],
+          "macro_f1": 0.759247223305458,
+          "macro_f1_ci": [
+            0.5194259051238235,
+            0.8943624537534313
+          ],
+          "invalid_rate": 0.0,
+          "labels": {
+            "sport": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "gaming": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "music": {
+              "support": 81,
+              "predicted": 76,
+              "precision": 0.9473684210526315,
+              "recall": 0.8888888888888888,
+              "f1": 0.9171974522292994
+            },
+            "social": {
+              "support": 4,
+              "predicted": 2,
+              "precision": 1.0,
+              "recall": 0.5,
+              "f1": 0.6666666666666666
+            },
+            "commerce": {
+              "support": 0,
+              "predicted": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "live": {
+              "support": 21,
+              "predicted": 28,
+              "precision": 0.6071428571428571,
+              "recall": 0.8095238095238095,
+              "f1": 0.6938775510204082
+            }
+          },
+          "confusion": {
+            "live": {
+              "live": 17,
+              "music": 4
+            },
+            "music": {
+              "live": 9,
+              "music": 72
+            },
+            "social": {
+              "social": 2,
+              "live": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

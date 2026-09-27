@@ -1,6 +1,6 @@
 {
-  "run": "silver",
-  "created_at": "2026-09-27T10:01:04+00:00",
+  "run": "lora",
+  "created_at": "2026-09-27T10:01:17+00:00",
   "n_bootstrap": 1000,
   "provenance": {
     "evaluate_sha256": "23522f8a11c34eda87b460bd6f401d338579897e158be768b9a9e39f8db0c6a5",
@@ -9,10 +9,68 @@
     "taxonomy_version": 1,
     "n_test_items": 450
   },
-  "predictions_sha256": "df9b464a78a722b989cd0ff5ecb48e0d21c12fcfbd32c47191938baa0e1b415e",
+  "predictions_sha256": "fb4833d52b78e4ff0c26ebef845f7731c62dd0dea002661051b9216afcabeed5",
   "meta": {
-    "method": "silver rules from mapping.yaml",
-    "mapping_sha256": "02d14f02b6688f5699f191085f26ecf0739b6441c93f9adaa53a2c0597ae625b"
+    "method": "lora",
+    "model": "Qwen/Qwen2.5-3B-Instruct",
+    "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "system_prompt_sha256": "ad613274bb67cd2de3d1f55e37a65044fa365f3ed483304748016d3de1c87645",
+    "fewshot_ids": null,
+    "serve": "merged",
+    "taxonomy_version": 1,
+    "limit": null,
+    "training": {
+      "labels_file": "data/private/processed/train.jsonl",
+      "labels_sha256": "800b5de4a8fd81cd0189d6bb6959064f74b1a17735424a377843673fd858cf5f",
+      "lora": {
+        "r": 16,
+        "alpha": 32,
+        "dropout": 0.05,
+        "targets": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ]
+      },
+      "optimisation": {
+        "epochs": 2,
+        "max_steps": null,
+        "learning_rate": 0.0002,
+        "batch_size": 4,
+        "grad_accumulation": 4,
+        "warmup": 0.03,
+        "scheduler": "cosine",
+        "seed": 13
+      },
+      "data": {
+        "examples": 4422,
+        "trained_tokens": 210479,
+        "placeholder_values_masked": 5773,
+        "tokens_median": 540,
+        "tokens_max": 803
+      },
+      "trainable_parameters": 29933568,
+      "train_runtime_s": 9150.9,
+      "best_eval_loss": 0.02523753233253956,
+      "device_name": "Tesla T4"
+    },
+    "decoding": {
+      "do_sample": false,
+      "max_new_tokens": 160,
+      "repetition_penalty": 1.0,
+      "batch_size": 1
+    },
+    "device": "cuda",
+    "device_name": "Tesla T4",
+    "versions": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.17.0"
+    },
+    "updated_at": "2026-09-26T23:03:43+00:00"
   },
   "coverage": {
     "n_test_items": 450,
@@ -20,111 +78,146 @@
     "n_unparsed": 0,
     "parse_failure_rate": 0.0
   },
-  "usage": {},
+  "usage": {
+    "latency_s": {
+      "n": 450,
+      "mean": 2.8236353333333333,
+      "median": 2.71015,
+      "p95": 3.3742299999999994,
+      "total": 1270.6359
+    },
+    "input_tokens": {
+      "n": 450,
+      "mean": 451.32444444444445,
+      "median": 467.5,
+      "p95": 560.55,
+      "total": 203096
+    },
+    "output_tokens": {
+      "n": 450,
+      "mean": 53.79555555555555,
+      "median": 54.0,
+      "p95": 58.0,
+      "total": 24208
+    }
+  },
   "slices": {
     "all": {
       "n_items": 450,
       "axes": {
         "energy": {
           "n": 441,
-          "accuracy": 1.0,
+          "accuracy": 0.7029478458049887,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.6620748299319728,
+            0.7437641723356009
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6865534505983945,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.6393248150744344,
+            0.7299632179003962
           ],
           "invalid_rate": 0.0,
           "labels": {
             "low": {
               "support": 74,
-              "predicted": 74,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 82,
+              "precision": 0.5853658536585366,
+              "recall": 0.6486486486486487,
+              "f1": 0.6153846153846154
             },
             "medium": {
               "support": 192,
-              "predicted": 192,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 178,
+              "precision": 0.7303370786516854,
+              "recall": 0.6770833333333334,
+              "f1": 0.7027027027027027
             },
             "high": {
               "support": 175,
-              "predicted": 175,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 181,
+              "precision": 0.7292817679558011,
+              "recall": 0.7542857142857143,
+              "f1": 0.7415730337078652
             }
           },
           "confusion": {
             "low": {
-              "low": 74
+              "low": 48,
+              "medium": 15,
+              "high": 11
             },
             "high": {
-              "high": 175
+              "medium": 33,
+              "high": 132,
+              "low": 10
             },
             "medium": {
-              "medium": 192
+              "medium": 130,
+              "high": 38,
+              "low": 24
             }
           }
         },
         "social": {
           "n": 450,
-          "accuracy": 1.0,
+          "accuracy": 0.9444444444444444,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9222222222222223,
+            0.9644444444444444
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.7790200252971449,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.6973170256649133,
+            0.8480408097063142
           ],
           "invalid_rate": 0.0,
           "labels": {
             "solo": {
               "support": 216,
-              "predicted": 216,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 221,
+              "precision": 0.9411764705882353,
+              "recall": 0.9629629629629629,
+              "f1": 0.9519450800915332
             },
             "small-group": {
               "support": 18,
-              "predicted": 18,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 14,
+              "precision": 0.5714285714285714,
+              "recall": 0.4444444444444444,
+              "f1": 0.5
             },
             "crowd": {
               "support": 19,
-              "predicted": 19,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 17,
+              "precision": 0.7058823529411765,
+              "recall": 0.631578947368421,
+              "f1": 0.6666666666666666
             },
             "spectator": {
               "support": 197,
-              "predicted": 197,
-              "precision": 1.0,
+              "predicted": 198,
+              "precision": 0.9949494949494949,
               "recall": 1.0,
-              "f1": 1.0
+              "f1": 0.9974683544303797
             }
           },
           "confusion": {
             "solo": {
-              "solo": 216
+              "solo": 208,
+              "small-group": 5,
+              "crowd": 3
             },
             "crowd": {
-              "crowd": 19
+              "solo": 5,
+              "crowd": 12,
+              "small-group": 1,
+              "spectator": 1
             },
             "small-group": {
-              "small-group": 18
+              "solo": 8,
+              "small-group": 8,
+              "crowd": 2
             },
             "spectator": {
               "spectator": 197
@@ -133,15 +226,15 @@
         },
         "engagement": {
           "n": 450,
-          "accuracy": 1.0,
+          "accuracy": 0.9555555555555556,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9355555555555556,
+            0.9733888888888889
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.7896154169822435,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.7108192629276491,
+            0.8625792503382232
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -154,25 +247,27 @@
             },
             "active": {
               "support": 229,
-              "predicted": 229,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 237,
+              "precision": 0.9409282700421941,
+              "recall": 0.9737991266375546,
+              "f1": 0.9570815450643777
             },
             "competitive": {
               "support": 21,
-              "predicted": 21,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 13,
+              "precision": 0.5384615384615384,
+              "recall": 0.3333333333333333,
+              "f1": 0.4117647058823529
             }
           },
           "confusion": {
             "active": {
-              "active": 229
+              "active": 223,
+              "competitive": 6
             },
             "competitive": {
-              "competitive": 21
+              "active": 14,
+              "competitive": 7
             },
             "passive": {
               "passive": 200
@@ -181,128 +276,125 @@
         },
         "mood": {
           "n": 250,
-          "accuracy": 0.148,
+          "accuracy": 0.332,
           "accuracy_ci": [
-            0.10790000000000001,
-            0.192
+            0.276,
+            0.396
           ],
-          "macro_f1": 0.21639512990220125,
+          "macro_f1": 0.47255165099010343,
           "macro_f1_ci": [
-            0.16437010256153223,
-            0.26538550103341263
+            0.42636237815997524,
+            0.5176940921172019
           ],
-          "jaccard": 0.17933333333333334,
+          "jaccard": 0.494,
           "jaccard_ci": [
-            0.13598333333333334,
-            0.22135000000000002
+            0.4413333333333333,
+            0.546
           ],
-          "invalid_rate": 0.692,
+          "invalid_rate": 0.0,
           "labels": {
             "calm": {
               "support": 58,
-              "predicted": 16,
-              "precision": 0.4375,
-              "recall": 0.1206896551724138,
-              "f1": 0.1891891891891892
+              "predicted": 31,
+              "precision": 0.7419354838709677,
+              "recall": 0.39655172413793105,
+              "f1": 0.5168539325842697
             },
             "uplifting": {
               "support": 38,
-              "predicted": 11,
-              "precision": 0.18181818181818182,
-              "recall": 0.05263157894736842,
-              "f1": 0.08163265306122448
+              "predicted": 60,
+              "precision": 0.4166666666666667,
+              "recall": 0.6578947368421053,
+              "f1": 0.5102040816326531
             },
             "intense": {
               "support": 105,
-              "predicted": 19,
-              "precision": 1.0,
-              "recall": 0.18095238095238095,
-              "f1": 0.3064516129032258
+              "predicted": 89,
+              "precision": 0.7303370786516854,
+              "recall": 0.6190476190476191,
+              "f1": 0.6701030927835051
             },
             "melancholic": {
               "support": 33,
-              "predicted": 11,
-              "precision": 0.18181818181818182,
-              "recall": 0.06060606060606061,
-              "f1": 0.09090909090909091
+              "predicted": 33,
+              "precision": 0.030303030303030304,
+              "recall": 0.030303030303030304,
+              "f1": 0.030303030303030304
             },
             "playful": {
               "support": 88,
-              "predicted": 28,
-              "precision": 0.8571428571428571,
-              "recall": 0.2727272727272727,
-              "f1": 0.41379310344827586
+              "predicted": 82,
+              "precision": 0.6585365853658537,
+              "recall": 0.6136363636363636,
+              "f1": 0.6352941176470588
             }
           }
         },
         "commitment": {
           "n": 250,
-          "accuracy": 0.396,
+          "accuracy": 0.536,
           "accuracy_ci": [
-            0.34,
-            0.456
+            0.476,
+            0.5960999999999999
           ],
-          "macro_f1": 0.31496690444058867,
+          "macro_f1": 0.3919317116991536,
           "macro_f1_ci": [
-            0.256580919395272,
-            0.3737070342885574
+            0.33641397686509616,
+            0.44878693686195237
           ],
-          "invalid_rate": 0.42,
+          "invalid_rate": 0.0,
           "labels": {
             "minutes": {
               "support": 49,
-              "predicted": 8,
-              "precision": 0.25,
-              "recall": 0.04081632653061224,
-              "f1": 0.07017543859649122
+              "predicted": 7,
+              "precision": 0.42857142857142855,
+              "recall": 0.061224489795918366,
+              "f1": 0.10714285714285714
             },
             "an-evening": {
               "support": 159,
-              "predicted": 114,
-              "precision": 0.7894736842105263,
-              "recall": 0.5660377358490566,
-              "f1": 0.6593406593406593
+              "predicted": 142,
+              "precision": 0.7323943661971831,
+              "recall": 0.6540880503144654,
+              "f1": 0.6910299003322259
             },
             "ongoing": {
               "support": 42,
-              "predicted": 23,
-              "precision": 0.30434782608695654,
-              "recall": 0.16666666666666666,
-              "f1": 0.2153846153846154
+              "predicted": 101,
+              "precision": 0.26732673267326734,
+              "recall": 0.6428571428571429,
+              "f1": 0.3776223776223776
             }
           },
           "confusion": {
             "an-evening": {
-              "<invalid>": 59,
-              "minutes": 3,
-              "an-evening": 90,
-              "ongoing": 7
+              "ongoing": 52,
+              "an-evening": 104,
+              "minutes": 3
             },
             "ongoing": {
-              "<invalid>": 20,
-              "ongoing": 7,
-              "minutes": 3,
-              "an-evening": 12
+              "ongoing": 27,
+              "an-evening": 14,
+              "minutes": 1
             },
             "minutes": {
-              "ongoing": 9,
-              "an-evening": 12,
-              "minutes": 2,
-              "<invalid>": 26
+              "minutes": 3,
+              "ongoing": 22,
+              "an-evening": 24
             }
           }
         },
         "time_of_day": {
           "n": 450,
-          "accuracy": 1.0,
+          "accuracy": 0.9911111111111112,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9822222222222222,
+            0.9977777777777778
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.8932017543859649,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.7208033093313992,
+            0.9801103478544942
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -316,23 +408,23 @@
             "afternoon": {
               "support": 6,
               "predicted": 6,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334,
+              "f1": 0.8333333333333334
             },
             "evening": {
               "support": 190,
               "predicted": 190,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.9894736842105263,
+              "recall": 0.9894736842105263,
+              "f1": 0.9894736842105263
             },
             "late-night": {
               "support": 4,
               "predicted": 4,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.75,
+              "recall": 0.75,
+              "f1": 0.75
             },
             "any": {
               "support": 250,
@@ -347,27 +439,31 @@
               "any": 250
             },
             "evening": {
-              "evening": 190
+              "evening": 188,
+              "late-night": 1,
+              "afternoon": 1
             },
             "late-night": {
-              "late-night": 4
+              "late-night": 3,
+              "evening": 1
             },
             "afternoon": {
-              "afternoon": 6
+              "afternoon": 5,
+              "evening": 1
             }
           }
         },
         "district": {
           "n": 356,
-          "accuracy": 0.9719101123595506,
+          "accuracy": 0.9775280898876404,
           "accuracy_ci": [
-            0.952247191011236,
-            0.9859550561797753
+            0.9606741573033708,
+            0.9915730337078652
           ],
-          "macro_f1": 0.6941760601180891,
+          "macro_f1": 0.7075936883629191,
           "macro_f1_ci": [
-            0.6528730466687783,
-            0.7276454650673401
+            0.6679493694711086,
+            0.7383528328358657
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -387,10 +483,10 @@
             },
             "music": {
               "support": 81,
-              "predicted": 81,
-              "precision": 0.9506172839506173,
-              "recall": 0.9506172839506173,
-              "f1": 0.9506172839506173
+              "predicted": 88,
+              "precision": 0.9204545454545454,
+              "recall": 1.0,
+              "f1": 0.9585798816568047
             },
             "social": {
               "support": 4,
@@ -408,10 +504,10 @@
             },
             "live": {
               "support": 21,
-              "predicted": 25,
-              "precision": 0.76,
-              "recall": 0.9047619047619048,
-              "f1": 0.8260869565217391
+              "predicted": 18,
+              "precision": 0.9444444444444444,
+              "recall": 0.8095238095238095,
+              "f1": 0.8717948717948718
             }
           },
           "confusion": {
@@ -419,16 +515,15 @@
               "gaming": 250
             },
             "live": {
-              "live": 19,
-              "music": 2
+              "live": 17,
+              "music": 4
             },
             "music": {
-              "live": 4,
-              "music": 77
+              "music": 81
             },
             "social": {
-              "live": 2,
-              "music": 2
+              "music": 3,
+              "live": 1
             }
           }
         }
@@ -439,104 +534,117 @@
       "axes": {
         "energy": {
           "n": 339,
-          "accuracy": 1.0,
+          "accuracy": 0.6519174041297935,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.5987463126843658,
+            0.6991150442477876
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6352268394967594,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.5749929950174739,
+            0.686420583404065
           ],
           "invalid_rate": 0.0,
           "labels": {
             "low": {
               "support": 61,
-              "predicted": 61,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 68,
+              "precision": 0.5294117647058824,
+              "recall": 0.5901639344262295,
+              "f1": 0.5581395348837209
             },
             "medium": {
               "support": 161,
-              "predicted": 161,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 144,
+              "precision": 0.7152777777777778,
+              "recall": 0.639751552795031,
+              "f1": 0.6754098360655738
             },
             "high": {
               "support": 117,
-              "predicted": 117,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 127,
+              "precision": 0.6456692913385826,
+              "recall": 0.7008547008547008,
+              "f1": 0.6721311475409836
             }
           },
           "confusion": {
             "low": {
-              "low": 61
+              "low": 36,
+              "medium": 14,
+              "high": 11
             },
             "high": {
-              "high": 117
+              "high": 82,
+              "medium": 27,
+              "low": 8
             },
             "medium": {
-              "medium": 161
+              "medium": 103,
+              "high": 34,
+              "low": 24
             }
           }
         },
         "social": {
           "n": 440,
-          "accuracy": 1.0,
+          "accuracy": 0.9454545454545454,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9227272727272727,
+            0.9659090909090909
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6905307776467065,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.6040839269129296,
+            0.7811429659913005
           ],
           "invalid_rate": 0.0,
           "labels": {
             "solo": {
               "support": 216,
-              "predicted": 216,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 220,
+              "precision": 0.9454545454545454,
+              "recall": 0.9629629629629629,
+              "f1": 0.9541284403669725
             },
             "small-group": {
               "support": 11,
-              "predicted": 11,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 8,
+              "precision": 0.25,
+              "recall": 0.18181818181818182,
+              "f1": 0.21052631578947367
             },
             "crowd": {
               "support": 16,
-              "predicted": 16,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 14,
+              "precision": 0.6428571428571429,
+              "recall": 0.5625,
+              "f1": 0.6
             },
             "spectator": {
               "support": 197,
-              "predicted": 197,
-              "precision": 1.0,
+              "predicted": 198,
+              "precision": 0.9949494949494949,
               "recall": 1.0,
-              "f1": 1.0
+              "f1": 0.9974683544303797
             }
           },
           "confusion": {
             "solo": {
-              "solo": 216
+              "solo": 208,
+              "small-group": 5,
+              "crowd": 3
             },
             "crowd": {
-              "crowd": 16
+              "solo": 5,
+              "crowd": 9,
+              "small-group": 1,
+              "spectator": 1
             },
             "small-group": {
-              "small-group": 11
+              "solo": 7,
+              "crowd": 2,
+              "small-group": 2
             },
             "spectator": {
               "spectator": 197
@@ -545,15 +653,15 @@
         },
         "engagement": {
           "n": 446,
-          "accuracy": 1.0,
+          "accuracy": 0.9596412556053812,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9416479820627803,
+            0.9753363228699552
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.7727832512315271,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.6883686730506157,
+            0.8413800137226749
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -566,25 +674,27 @@
             },
             "active": {
               "support": 229,
-              "predicted": 229,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 235,
+              "precision": 0.948936170212766,
+              "recall": 0.9737991266375546,
+              "f1": 0.9612068965517241
             },
             "competitive": {
               "support": 17,
-              "predicted": 17,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 11,
+              "precision": 0.45454545454545453,
+              "recall": 0.29411764705882354,
+              "f1": 0.35714285714285715
             }
           },
           "confusion": {
             "active": {
-              "active": 229
+              "active": 223,
+              "competitive": 6
             },
             "competitive": {
-              "competitive": 17
+              "active": 12,
+              "competitive": 5
             },
             "passive": {
               "passive": 200
@@ -593,128 +703,124 @@
         },
         "mood": {
           "n": 209,
-          "accuracy": 0.06698564593301436,
+          "accuracy": 0.3014354066985646,
           "accuracy_ci": [
-            0.03827751196172249,
-            0.10047846889952153
+            0.23444976076555024,
+            0.36363636363636365
           ],
-          "macro_f1": 0.11989044428906973,
+          "macro_f1": 0.4564144691435069,
           "macro_f1_ci": [
-            0.07756548011568223,
-            0.16389548878430726
+            0.4084654739125355,
+            0.506039592182457
           ],
-          "jaccard": 0.08771929824561403,
+          "jaccard": 0.4688995215311005,
           "jaccard_ci": [
-            0.05422647527910686,
-            0.12521929824561404
+            0.41385566188197764,
+            0.5263157894736842
           ],
-          "invalid_rate": 0.8277511961722488,
+          "invalid_rate": 0.0,
           "labels": {
             "calm": {
               "support": 54,
-              "predicted": 9,
-              "precision": 0.4444444444444444,
-              "recall": 0.07407407407407407,
-              "f1": 0.12698412698412698
+              "predicted": 27,
+              "precision": 0.7407407407407407,
+              "recall": 0.37037037037037035,
+              "f1": 0.49382716049382713
             },
             "uplifting": {
               "support": 32,
-              "predicted": 5,
+              "predicted": 52,
+              "precision": 0.4423076923076923,
+              "recall": 0.71875,
+              "f1": 0.5476190476190477
+            },
+            "intense": {
+              "support": 89,
+              "predicted": 75,
+              "precision": 0.72,
+              "recall": 0.6067415730337079,
+              "f1": 0.6585365853658537
+            },
+            "melancholic": {
+              "support": 30,
+              "predicted": 24,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0
             },
-            "intense": {
-              "support": 89,
-              "predicted": 8,
-              "precision": 1.0,
-              "recall": 0.0898876404494382,
-              "f1": 0.16494845360824742
-            },
-            "melancholic": {
-              "support": 30,
-              "predicted": 3,
-              "precision": 0.3333333333333333,
-              "recall": 0.03333333333333333,
-              "f1": 0.06060606060606061
-            },
             "playful": {
               "support": 67,
-              "predicted": 14,
-              "precision": 0.7142857142857143,
-              "recall": 0.14925373134328357,
-              "f1": 0.24691358024691357
+              "predicted": 67,
+              "precision": 0.582089552238806,
+              "recall": 0.582089552238806,
+              "f1": 0.582089552238806
             }
           }
         },
         "commitment": {
           "n": 240,
-          "accuracy": 0.39166666666666666,
+          "accuracy": 0.5375,
           "accuracy_ci": [
-            0.32916666666666666,
-            0.45416666666666666
+            0.4708333333333333,
+            0.6
           ],
-          "macro_f1": 0.2833976968305327,
+          "macro_f1": 0.3866051366051366,
           "macro_f1_ci": [
-            0.22981255821546204,
-            0.3385997574274202
+            0.3259906614296163,
+            0.4509213942219866
           ],
-          "invalid_rate": 0.4375,
+          "invalid_rate": 0.0,
           "labels": {
             "minutes": {
               "support": 47,
               "predicted": 5,
-              "precision": 0.4,
-              "recall": 0.0425531914893617,
-              "f1": 0.07692307692307693
+              "precision": 0.6,
+              "recall": 0.06382978723404255,
+              "f1": 0.11538461538461539
             },
             "an-evening": {
               "support": 156,
-              "predicted": 112,
-              "precision": 0.7946428571428571,
-              "recall": 0.5705128205128205,
-              "f1": 0.664179104477612
+              "predicted": 140,
+              "precision": 0.7357142857142858,
+              "recall": 0.6602564102564102,
+              "f1": 0.6959459459459459
             },
             "ongoing": {
               "support": 37,
-              "predicted": 18,
-              "precision": 0.16666666666666666,
-              "recall": 0.08108108108108109,
-              "f1": 0.10909090909090909
+              "predicted": 95,
+              "precision": 0.24210526315789474,
+              "recall": 0.6216216216216216,
+              "f1": 0.3484848484848485
             }
           },
           "confusion": {
             "an-evening": {
-              "<invalid>": 59,
-              "minutes": 1,
-              "an-evening": 89,
-              "ongoing": 7
+              "ongoing": 51,
+              "an-evening": 103,
+              "minutes": 2
             },
             "ongoing": {
-              "<invalid>": 20,
-              "ongoing": 3,
-              "minutes": 2,
-              "an-evening": 12
+              "ongoing": 23,
+              "an-evening": 14
             },
             "minutes": {
-              "ongoing": 8,
-              "an-evening": 11,
-              "minutes": 2,
-              "<invalid>": 26
+              "minutes": 3,
+              "ongoing": 21,
+              "an-evening": 23
             }
           }
         },
         "time_of_day": {
           "n": 450,
-          "accuracy": 1.0,
+          "accuracy": 0.9911111111111112,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.9822222222222222,
+            0.9977777777777778
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.8932017543859649,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.7181567358346198,
+            0.9826050863001137
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -728,23 +834,23 @@
             "afternoon": {
               "support": 6,
               "predicted": 6,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334,
+              "f1": 0.8333333333333334
             },
             "evening": {
               "support": 190,
               "predicted": 190,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.9894736842105263,
+              "recall": 0.9894736842105263,
+              "f1": 0.9894736842105263
             },
             "late-night": {
               "support": 4,
               "predicted": 4,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.75,
+              "recall": 0.75,
+              "f1": 0.75
             },
             "any": {
               "support": 250,
@@ -759,27 +865,31 @@
               "any": 250
             },
             "evening": {
-              "evening": 190
+              "evening": 188,
+              "late-night": 1,
+              "afternoon": 1
             },
             "late-night": {
-              "late-night": 4
+              "late-night": 3,
+              "evening": 1
             },
             "afternoon": {
-              "afternoon": 6
+              "afternoon": 5,
+              "evening": 1
             }
           }
         },
         "district": {
           "n": 321,
-          "accuracy": 0.9750778816199377,
+          "accuracy": 0.9813084112149533,
           "accuracy_ci": [
-            0.9595015576323987,
-            0.9906542056074766
+            0.9657320872274143,
+            0.9937694704049844
           ],
-          "macro_f1": 0.6951536643026005,
+          "macro_f1": 0.7113079729025534,
           "macro_f1_ci": [
-            0.6494185790308844,
-            0.9450967691131381
+            0.6719640645868181,
+            0.963137340164859
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -799,10 +909,10 @@
             },
             "music": {
               "support": 48,
-              "predicted": 46,
-              "precision": 0.9565217391304348,
-              "recall": 0.9166666666666666,
-              "f1": 0.9361702127659575
+              "predicted": 53,
+              "precision": 0.9056603773584906,
+              "recall": 1.0,
+              "f1": 0.9504950495049505
             },
             "social": {
               "support": 3,
@@ -820,10 +930,10 @@
             },
             "live": {
               "support": 20,
-              "predicted": 25,
-              "precision": 0.76,
-              "recall": 0.95,
-              "f1": 0.8444444444444444
+              "predicted": 18,
+              "precision": 0.9444444444444444,
+              "recall": 0.85,
+              "f1": 0.8947368421052632
             }
           },
           "confusion": {
@@ -831,16 +941,15 @@
               "gaming": 250
             },
             "live": {
-              "live": 19,
-              "music": 1
+              "live": 17,
+              "music": 3
             },
             "music": {
-              "live": 4,
-              "music": 44
+              "music": 48
             },
             "social": {
-              "live": 2,
-              "music": 1
+              "music": 2,
+              "live": 1
             }
           }
         }
@@ -851,86 +960,92 @@
       "axes": {
         "energy": {
           "n": 250,
-          "accuracy": 1.0,
+          "accuracy": 0.664,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.6079,
+            0.72
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6312755258209803,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.5700213307008095,
+            0.6893799697094393
           ],
           "invalid_rate": 0.0,
           "labels": {
             "low": {
               "support": 72,
-              "predicted": 72,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 82,
+              "precision": 0.5853658536585366,
+              "recall": 0.6666666666666666,
+              "f1": 0.6233766233766234
             },
             "medium": {
               "support": 66,
-              "predicted": 66,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 55,
+              "precision": 0.5272727272727272,
+              "recall": 0.4393939393939394,
+              "f1": 0.4793388429752066
             },
             "high": {
               "support": 112,
-              "predicted": 112,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 113,
+              "precision": 0.7876106194690266,
+              "recall": 0.7946428571428571,
+              "f1": 0.7911111111111111
             }
           },
           "confusion": {
             "low": {
-              "low": 72
+              "low": 48,
+              "medium": 13,
+              "high": 11
             },
             "high": {
-              "high": 112
+              "medium": 13,
+              "high": 89,
+              "low": 10
             },
             "medium": {
-              "medium": 66
+              "medium": 29,
+              "high": 13,
+              "low": 24
             }
           }
         },
         "social": {
           "n": 250,
-          "accuracy": 1.0,
+          "accuracy": 0.904,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.864,
+            0.94
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6990354568047046,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.5879272662867112,
+            0.8005579814166153
           ],
           "invalid_rate": 0.0,
           "labels": {
             "solo": {
               "support": 216,
-              "predicted": 216,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 221,
+              "precision": 0.9411764705882353,
+              "recall": 0.9629629629629629,
+              "f1": 0.9519450800915332
             },
             "small-group": {
               "support": 18,
-              "predicted": 18,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 14,
+              "precision": 0.5714285714285714,
+              "recall": 0.4444444444444444,
+              "f1": 0.5
             },
             "crowd": {
               "support": 16,
-              "predicted": 16,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 15,
+              "precision": 0.6666666666666666,
+              "recall": 0.625,
+              "f1": 0.6451612903225806
             },
             "spectator": {
               "support": 0,
@@ -942,27 +1057,33 @@
           },
           "confusion": {
             "solo": {
-              "solo": 216
+              "solo": 208,
+              "small-group": 5,
+              "crowd": 3
             },
             "crowd": {
-              "crowd": 16
+              "solo": 5,
+              "crowd": 10,
+              "small-group": 1
             },
             "small-group": {
-              "small-group": 18
+              "solo": 8,
+              "small-group": 8,
+              "crowd": 2
             }
           }
         },
         "engagement": {
           "n": 250,
-          "accuracy": 1.0,
+          "accuracy": 0.92,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.884,
+            0.952
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.6844231254733653,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.5616132631914554,
+            0.7904931981229059
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -975,53 +1096,55 @@
             },
             "active": {
               "support": 229,
-              "predicted": 229,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 237,
+              "precision": 0.9409282700421941,
+              "recall": 0.9737991266375546,
+              "f1": 0.9570815450643777
             },
             "competitive": {
               "support": 21,
-              "predicted": 21,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 13,
+              "precision": 0.5384615384615384,
+              "recall": 0.3333333333333333,
+              "f1": 0.4117647058823529
             }
           },
           "confusion": {
             "active": {
-              "active": 229
+              "active": 223,
+              "competitive": 6
             },
             "competitive": {
-              "competitive": 21
+              "active": 14,
+              "competitive": 7
             }
           }
         },
         "mood": {
           "n": 144,
-          "accuracy": 0.1111111111111111,
+          "accuracy": 0.3263888888888889,
           "accuracy_ci": [
-            0.0625,
-            0.1597222222222222
+            0.25,
+            0.4027777777777778
           ],
-          "macro_f1": 0.20049944892062901,
+          "macro_f1": 0.3929445501691022,
           "macro_f1_ci": [
-            0.12900239262961732,
-            0.2796831486236428
+            0.35011538126038066,
+            0.49602169810570795
           ],
-          "jaccard": 0.14814814814814814,
+          "jaccard": 0.5173611111111112,
           "jaccard_ci": [
-            0.09606481481481483,
-            0.2013888888888889
+            0.4583043981481481,
+            0.5775462962962963
           ],
-          "invalid_rate": 0.7708333333333334,
+          "invalid_rate": 0.0,
           "labels": {
             "calm": {
               "support": 49,
-              "predicted": 9,
-              "precision": 0.6666666666666666,
-              "recall": 0.12244897959183673,
-              "f1": 0.20689655172413793
+              "predicted": 25,
+              "precision": 0.88,
+              "recall": 0.4489795918367347,
+              "f1": 0.5945945945945946
             },
             "uplifting": {
               "support": 3,
@@ -1032,81 +1155,78 @@
             },
             "intense": {
               "support": 61,
-              "predicted": 13,
-              "precision": 1.0,
-              "recall": 0.21311475409836064,
-              "f1": 0.35135135135135137
+              "predicted": 68,
+              "precision": 0.6911764705882353,
+              "recall": 0.7704918032786885,
+              "f1": 0.7286821705426356
             },
             "melancholic": {
               "support": 6,
-              "predicted": 11,
-              "precision": 0.18181818181818182,
-              "recall": 0.3333333333333333,
-              "f1": 0.23529411764705882
+              "predicted": 33,
+              "precision": 0.030303030303030304,
+              "recall": 0.16666666666666666,
+              "f1": 0.05128205128205128
             },
             "playful": {
               "support": 59,
-              "predicted": 8,
-              "precision": 0.875,
-              "recall": 0.11864406779661017,
-              "f1": 0.208955223880597
+              "predicted": 63,
+              "precision": 0.5714285714285714,
+              "recall": 0.6101694915254238,
+              "f1": 0.5901639344262295
             }
           }
         },
         "commitment": {
           "n": 144,
-          "accuracy": 0.08333333333333333,
+          "accuracy": 0.3263888888888889,
           "accuracy_ci": [
-            0.04149305555555556,
-            0.12517361111111094
+            0.25,
+            0.4027777777777778
           ],
-          "macro_f1": 0.13863063744016124,
+          "macro_f1": 0.28296857463524133,
           "macro_f1_ci": [
-            0.0666453537936914,
-            0.20280306172065235
+            0.21448397013614406,
+            0.34969761220710704
           ],
-          "invalid_rate": 0.7291666666666666,
+          "invalid_rate": 0.0,
           "labels": {
             "minutes": {
               "support": 41,
-              "predicted": 8,
-              "precision": 0.25,
-              "recall": 0.04878048780487805,
-              "f1": 0.08163265306122448
+              "predicted": 7,
+              "precision": 0.42857142857142855,
+              "recall": 0.07317073170731707,
+              "f1": 0.125
             },
             "an-evening": {
               "support": 72,
-              "predicted": 8,
-              "precision": 0.375,
-              "recall": 0.041666666666666664,
-              "f1": 0.075
+              "predicted": 36,
+              "precision": 0.4722222222222222,
+              "recall": 0.2361111111111111,
+              "f1": 0.3148148148148148
             },
             "ongoing": {
               "support": 31,
-              "predicted": 23,
-              "precision": 0.30434782608695654,
-              "recall": 0.22580645161290322,
-              "f1": 0.25925925925925924
+              "predicted": 101,
+              "precision": 0.26732673267326734,
+              "recall": 0.8709677419354839,
+              "f1": 0.4090909090909091
             }
           },
           "confusion": {
             "an-evening": {
-              "<invalid>": 59,
-              "minutes": 3,
-              "an-evening": 3,
-              "ongoing": 7
+              "ongoing": 52,
+              "an-evening": 17,
+              "minutes": 3
             },
             "ongoing": {
-              "<invalid>": 20,
-              "ongoing": 7,
-              "minutes": 3,
-              "an-evening": 1
+              "ongoing": 27,
+              "an-evening": 3,
+              "minutes": 1
             },
             "minutes": {
-              "ongoing": 9,
-              "an-evening": 4,
-              "minutes": 2,
-              "<invalid>": 26
+              "minutes": 3,
+              "ongoing": 22,
+              "an-evening": 16
             }
           }
         },
@@ -1236,62 +1356,64 @@
       "axes": {
         "energy": {
           "n": 191,
-          "accuracy": 1.0,
+          "accuracy": 0.7539267015706806,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.6910994764397905,
+            0.8116492146596858
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.4892445098459997,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.4453243043729109,
+            0.7750002547724764
           ],
           "invalid_rate": 0.0,
           "labels": {
             "low": {
               "support": 2,
-              "predicted": 2,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 0,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
             },
             "medium": {
               "support": 126,
-              "predicted": 126,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 123,
+              "precision": 0.8211382113821138,
+              "recall": 0.8015873015873016,
+              "f1": 0.8112449799196787
             },
             "high": {
               "support": 63,
-              "predicted": 63,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "predicted": 68,
+              "precision": 0.6323529411764706,
+              "recall": 0.6825396825396826,
+              "f1": 0.6564885496183206
             }
           },
           "confusion": {
             "medium": {
-              "medium": 126
+              "medium": 101,
+              "high": 25
             },
             "high": {
-              "high": 63
+              "medium": 20,
+              "high": 43
             },
             "low": {
-              "low": 2
+              "medium": 2
             }
           }
         },
         "social": {
           "n": 200,
-          "accuracy": 1.0,
+          "accuracy": 0.995,
           "accuracy_ci": [
-            1.0,
+            0.985,
             1.0
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.8987341772151899,
           "macro_f1_ci": [
-            1.0,
+            0.49748743718592964,
             1.0
           ],
           "invalid_rate": 0.0,
@@ -1312,17 +1434,17 @@
             },
             "crowd": {
               "support": 3,
-              "predicted": 3,
+              "predicted": 2,
               "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "recall": 0.6666666666666666,
+              "f1": 0.8
             },
             "spectator": {
               "support": 197,
-              "predicted": 197,
-              "precision": 1.0,
+              "predicted": 198,
+              "precision": 0.9949494949494949,
               "recall": 1.0,
-              "f1": 1.0
+              "f1": 0.9974683544303797
             }
           },
           "confusion": {
@@ -1330,7 +1452,8 @@
               "spectator": 197
             },
             "crowd": {
-              "crowd": 3
+              "crowd": 2,
+              "spectator": 1
             }
           }
         },
@@ -1378,43 +1501,43 @@
         },
         "mood": {
           "n": 106,
-          "accuracy": 0.19811320754716982,
+          "accuracy": 0.33962264150943394,
           "accuracy_ci": [
-            0.1320754716981132,
-            0.2830188679245283
+            0.25471698113207547,
+            0.4339622641509434
           ],
-          "macro_f1": 0.22916681455190774,
+          "macro_f1": 0.3926990553306343,
           "macro_f1_ci": [
-            0.16509347581242573,
-            0.2970232682681933
+            0.3266403647898493,
+            0.4577324487107096
           ],
-          "jaccard": 0.22169811320754718,
+          "jaccard": 0.46226415094339623,
           "jaccard_ci": [
-            0.1509433962264151,
-            0.30200471698113196
+            0.38207547169811323,
+            0.542570754716981
           ],
-          "invalid_rate": 0.5849056603773585,
+          "invalid_rate": 0.0,
           "labels": {
             "calm": {
               "support": 9,
-              "predicted": 7,
-              "precision": 0.14285714285714285,
+              "predicted": 6,
+              "precision": 0.16666666666666666,
               "recall": 0.1111111111111111,
-              "f1": 0.125
+              "f1": 0.13333333333333333
             },
             "uplifting": {
               "support": 35,
-              "predicted": 11,
-              "precision": 0.18181818181818182,
-              "recall": 0.05714285714285714,
-              "f1": 0.08695652173913043
+              "predicted": 60,
+              "precision": 0.4166666666666667,
+              "recall": 0.7142857142857143,
+              "f1": 0.5263157894736842
             },
             "intense": {
               "support": 44,
-              "predicted": 6,
-              "precision": 1.0,
-              "recall": 0.13636363636363635,
-              "f1": 0.24
+              "predicted": 21,
+              "precision": 0.8571428571428571,
+              "recall": 0.4090909090909091,
+              "f1": 0.5538461538461539
             },
             "melancholic": {
               "support": 27,
@@ -1425,10 +1548,10 @@
             },
             "playful": {
               "support": 29,
-              "predicted": 20,
-              "precision": 0.85,
-              "recall": 0.5862068965517241,
-              "f1": 0.6938775510204082
+              "predicted": 19,
+              "precision": 0.9473684210526315,
+              "recall": 0.6206896551724138,
+              "f1": 0.75
             }
           }
         },
@@ -1482,15 +1605,15 @@
         },
         "time_of_day": {
           "n": 200,
-          "accuracy": 1.0,
+          "accuracy": 0.98,
           "accuracy_ci": [
-            1.0,
-            1.0
+            0.96,
+            0.995
           ],
-          "macro_f1": 1.0,
+          "macro_f1": 0.8576023391812866,
           "macro_f1_ci": [
-            1.0,
-            1.0
+            0.6290707587382779,
+            0.9734795823040894
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -1504,23 +1627,23 @@
             "afternoon": {
               "support": 6,
               "predicted": 6,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334,
+              "f1": 0.8333333333333334
             },
             "evening": {
               "support": 190,
               "predicted": 190,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.9894736842105263,
+              "recall": 0.9894736842105263,
+              "f1": 0.9894736842105263
             },
             "late-night": {
               "support": 4,
               "predicted": 4,
-              "precision": 1.0,
-              "recall": 1.0,
-              "f1": 1.0
+              "precision": 0.75,
+              "recall": 0.75,
+              "f1": 0.75
             },
             "any": {
               "support": 0,
@@ -1532,27 +1655,31 @@
           },
           "confusion": {
             "evening": {
-              "evening": 190
+              "evening": 188,
+              "late-night": 1,
+              "afternoon": 1
             },
             "late-night": {
-              "late-night": 4
+              "late-night": 3,
+              "evening": 1
             },
             "afternoon": {
-              "afternoon": 6
+              "afternoon": 5,
+              "evening": 1
             }
           }
         },
         "district": {
           "n": 106,
-          "accuracy": 0.9056603773584906,
+          "accuracy": 0.9245283018867925,
           "accuracy_ci": [
-            0.8490566037735849,
-            0.9528301886792453
+            0.8679245283018868,
+            0.9716981132075472
           ],
-          "macro_f1": 0.5922347468241188,
+          "macro_f1": 0.6101249178172256,
           "macro_f1_ci": [
-            0.5352897710479049,
-            0.6421488901704977
+            0.5551273291590053,
+            0.65283316309159
           ],
           "invalid_rate": 0.0,
           "labels": {
@@ -1572,10 +1699,10 @@
             },
             "music": {
               "support": 81,
-              "predicted": 81,
-              "precision": 0.9506172839506173,
-              "recall": 0.9506172839506173,
-              "f1": 0.9506172839506173
+              "predicted": 88,
+              "precision": 0.9204545454545454,
+              "recall": 1.0,
+              "f1": 0.9585798816568047
             },
             "social": {
               "support": 4,
@@ -1593,24 +1720,23 @@
             },
             "live": {
               "support": 21,
-              "predicted": 25,
-              "precision": 0.76,
-              "recall": 0.9047619047619048,
-              "f1": 0.8260869565217391
+              "predicted": 18,
+              "precision": 0.9444444444444444,
+              "recall": 0.8095238095238095,
+              "f1": 0.8717948717948718
             }
           },
           "confusion": {
             "live": {
-              "live": 19,
-              "music": 2
+              "live": 17,
+              "music": 4
             },
             "music": {
-              "live": 4,
-              "music": 77
+              "music": 81
             },
             "social": {
-              "live": 2,
-              "music": 2
+              "music": 3,
+              "live": 1
             }
           }
         }
